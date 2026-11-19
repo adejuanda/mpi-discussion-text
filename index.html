@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6D4AFF">
+<title>MPI Discussion Text – Adjectives | Bahasa Inggris XII</title>
+<style>
+/* =========================================================
+   1. VARIABEL WARNA & DASAR
+   ========================================================= */
+:root{
+  --p:#6D4AFF;      /* ungu utama */
+  --pd:#372580;     /* ungu gelap */
+  --pm:#5A37F0;     /* ungu hover */
+  --pl:#EDE9FF;     /* ungu terang */
+  --bg:#F7F6FC;
+  --ink:#1E1B3A;
+  --muted:#5B5875;
+  --ok:#16A34A; --okl:#DCFCE7;
+  --bad:#DC2626; --badl:#FEE2E2;
+  --gold:#F5B700;
+  --radius:18px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+@media (min-width:1200px){html{font-size:20px}}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;min-height:100vh;min-height:100dvh;overflow-x:hidden}
+img{max-width:100%}
+h1,h2,h3{line-height:1.2}
+.hidden{display:none!important}
+.ic{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em;flex:0 0 auto;display:inline-block}
+.ic.fill{fill:currentColor}
+.ic .dot{fill:currentColor;stroke:none}
+.ic-gold{color:var(--gold)}.ic-red{color:#E5484D}.ic-mute{color:#CFC8EE}
+.title-ic{display:inline-flex;align-items:center;justify-content:center;width:1.6em;height:1.6em;border-radius:.45em;background:var(--pl);color:var(--p);margin-right:.35em;vertical-align:-.3em}
+.title-ic .ic{width:.95em;height:.95em}
+h3 .title-ic{width:1.7em;height:1.7em}
+[data-hic]{display:flex;align-items:center;gap:.5em}
+[data-hic] .title-ic{margin-right:0;flex:0 0 auto}
+.overlay [data-hic],#simResult [data-hic],#simIntro [data-hic]{justify-content:center}
+.help-item{display:flex;align-items:center;gap:14px;background:var(--pl);border-radius:12px;padding:12px 16px}
+.help-ic{flex:0 0 40px;width:40px;height:40px;border-radius:10px;background:#fff;color:var(--p);display:flex;align-items:center;justify-content:center}
+.help-ic .ic{width:22px;height:22px}
+.help-item p{margin:0;line-height:1.45}
+.help-item b{color:var(--pd)}
+.small-id{display:block;font-size:.82rem;color:var(--muted);font-style:italic;margin-top:.2rem}
+
+/* =========================================================
+   2. LAYAR (SCREEN)
+   ========================================================= */
+.screen{display:none;min-height:100vh;min-height:100dvh;padding:84px 16px 32px}
+.screen.active{display:block;animation:fadeIn .35s ease}
+.wrap{max-width:1000px;margin:0 auto}
+.card{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:0 6px 24px rgba(55,37,128,.08)}
+.page-title{font-size:1.7rem;color:var(--pd);margin-bottom:.3rem}
+.page-sub{color:var(--muted);margin-bottom:1.2rem}
+
+/* =========================================================
+   3. TOMBOL (hover HANYA pada tombol)
+   ========================================================= */
+button{font-family:inherit;font-size:1rem;cursor:pointer;-webkit-tap-highlight-color:transparent;color:inherit}
+.btn{border:0;border-radius:14px;padding:.75em 1.4em;min-height:48px;font-weight:800;letter-spacing:.02em;
+  background:var(--p);color:#fff;box-shadow:0 4px 0 var(--pd);
+  transition:transform .12s,box-shadow .12s,background .15s;display:inline-flex;align-items:center;justify-content:center;gap:.5em}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--pd)}
+.btn:disabled{background:#B9B3D9;box-shadow:0 4px 0 #8E87B5;cursor:not-allowed}
+.btn-ghost{background:#fff;color:var(--p);border:2px solid var(--p);box-shadow:0 4px 0 var(--pl)}
+.btn-ghost:active{box-shadow:0 1px 0 var(--pl)}
+.btn-ok{background:var(--ok);box-shadow:0 4px 0 #0E6E31}
+.btn-gold{background:var(--gold);color:#3A2A00;box-shadow:0 4px 0 #B08300}
+.btn-lg{font-size:1.3rem;padding:.8em 2.2em;border-radius:20px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px}
+@media (hover:hover){
+  .btn:not(:disabled):hover{background:var(--pm);transform:translateY(-2px);box-shadow:0 6px 0 var(--pd)}
+  .btn-ghost:not(:disabled):hover{background:var(--pl);color:var(--pd)}
+  .btn-ok:not(:disabled):hover{background:#12873D}
+  .btn-gold:not(:disabled):hover{background:#FFC61A}
+}
+
+/* =========================================================
+   4. TOP BAR: HOME (kiri atas) + nama siswa
+   ========================================================= */
+#topbar{position:fixed;top:0;left:0;right:0;height:68px;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top));pointer-events:none}
+#topbar > *{pointer-events:auto}
+#btnHome{width:52px;height:52px;padding:0;border-radius:16px}
+#btnHome .ic{width:26px;height:26px}
+#userChip .ic{margin-right:.35em}
+#userChip{background:#fff;color:var(--pd);border-radius:999px;padding:.4em 1em;font-weight:700;font-size:.9rem;box-shadow:0 4px 14px rgba(55,37,128,.12);max-width:60vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* =========================================================
+   5. SPLASH SCREEN
+   ========================================================= */
+#scr-splash{padding:24px;background:radial-gradient(circle at 20% 20%,#8E73FF 0,transparent 40%),radial-gradient(circle at 80% 80%,#4B2BD1 0,transparent 45%),linear-gradient(135deg,var(--p),var(--pd));
+  color:#fff;position:relative;overflow:hidden}
+#scr-splash.active{display:flex;align-items:center;justify-content:center;text-align:center}
+.splash-inner{position:relative;z-index:2;max-width:820px}
+.splash-tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:.35em 1.1em;font-weight:700;font-size:.9rem;animation:fadeUp .7s .1s both}
+.splash-title{font-size:clamp(2.6rem,9vw,5.4rem);font-weight:900;letter-spacing:.02em;margin:.25em 0 .1em;text-shadow:0 6px 0 rgba(0,0,0,.18);animation:popIn .9s .25s both}
+.splash-sub{font-size:clamp(1.1rem,3.5vw,1.6rem);font-weight:700;opacity:.95;animation:fadeUp .7s .55s both}
+.splash-desc{opacity:.85;margin-top:.5em;animation:fadeUp .7s .7s both}
+.splash-inner .btn{margin-top:1.6em;animation:fadeUp .7s .9s both, pulse 2.2s 1.8s infinite}
+.splash-inner .btn{background:#fff;color:var(--pd);box-shadow:0 6px 0 rgba(0,0,0,.25)}
+@media (hover:hover){.splash-inner .btn:hover{background:var(--pl);color:var(--pd)}}
+.splash-foot{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:.8rem;opacity:.8;z-index:2}
+.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:floaty 9s ease-in-out infinite}
+.bubble span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:rgba(255,255,255,.55);font-size:.9rem}
+
+/* =========================================================
+   6. IDENTITAS
+   ========================================================= */
+.id-card{max-width:520px;margin:4vh auto 0}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:800;margin-bottom:6px;color:var(--pd)}
+.field input,.field select{width:100%;font-size:18px;font-family:inherit;padding:14px 16px;border:2px solid #D6D0F5;border-radius:14px;background:#fff;color:var(--ink);outline:none}
+.field input:focus,.field select:focus{border-color:var(--p);box-shadow:0 0 0 4px rgba(109,74,255,.18)}
+
+/* =========================================================
+   7. MENU UTAMA
+   ========================================================= */
+.menu-head{text-align:center;margin-bottom:22px}
+.menu-head h1{font-size:clamp(1.6rem,5vw,2.4rem);color:var(--pd)}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:760px;margin:0 auto}
+@media (min-width:900px){.menu-grid{grid-template-columns:repeat(4,1fr);max-width:1000px}}
+.tile{border:0;border-radius:22px;background:#fff;padding:24px 12px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 6px 0 var(--pl),0 10px 24px rgba(55,37,128,.10);transition:transform .12s,box-shadow .12s,background .15s}
+.tile .ico{width:76px;height:76px;border-radius:22px;background:var(--pl);color:var(--p);display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+.tile .ico .ic{width:40px;height:40px;stroke-width:1.8}
+.tile .lbl{font-weight:900;font-size:1.15rem;color:var(--pd);letter-spacing:.04em}
+.tile .hint{font-size:.8rem;color:var(--muted)}
+.tile:active{transform:translateY(4px);box-shadow:0 2px 0 var(--pl)}
+@media (hover:hover){.tile:hover .ico{background:var(--p);color:#fff}.tile:hover{transform:translateY(-4px);background:#FBFAFF;box-shadow:0 10px 0 #D6CCFF,0 14px 28px rgba(55,37,128,.16)}}
+.menu-tools{display:flex;justify-content:center;gap:12px;margin-top:22px;flex-wrap:wrap}
+.footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:28px}
+
+/* =========================================================
+   8. BERANDA & MATERI
+   ========================================================= */
+.goal-list{margin:12px 0 0 1.2em}
+.goal-list li{margin-bottom:6px}
+.steps-help{display:grid;gap:10px;margin-top:12px}
+.steps-help div{background:var(--pl);border-radius:12px;padding:12px 14px}
+.steps-help b{display:inline-flex;align-items:center;gap:.35em;color:var(--pd)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;-webkit-overflow-scrolling:touch}
+.tab{border:2px solid var(--pl);background:#fff;color:var(--pd);border-radius:999px;padding:.55em 1.1em;font-weight:800;white-space:nowrap;min-height:46px;transition:background .15s}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+@media (hover:hover){.tab:not(.on):hover{background:var(--pl)}}
+.reveal{margin-bottom:10px}
+.reveal-btn{width:100%;text-align:left;border:2px solid var(--pl);background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;color:var(--pd);display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:52px;transition:background .15s}
+.reveal-btn .arr{transition:transform .2s;display:flex}
+.rb-t{display:flex;align-items:center;gap:.6em}
+.rb-t .ic{color:var(--p);width:1.3em;height:1.3em}
+.reveal.open .reveal-btn{background:var(--pl)}
+.reveal.open .arr{transform:rotate(90deg)}
+@media (hover:hover){.reveal-btn:hover{background:var(--pl)}}
+.reveal-body{display:none;padding:14px 16px 6px}
+.reveal.open .reveal-body{display:block;animation:fadeIn .25s}
+.reveal-body ul{margin-left:1.2em}
+.struct-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.flip{border:0;border-radius:16px;min-height:150px;padding:16px;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;text-align:left;display:flex;flex-direction:column;justify-content:center;gap:6px;box-shadow:0 5px 0 #261A5C;transition:transform .12s,box-shadow .12s}
+.flip .num{font-size:.8rem;opacity:.8;font-weight:800}
+.flip .t{font-size:1.25rem;font-weight:900}
+.flip .b{display:none;font-size:.95rem;line-height:1.45}
+.flip .tap{font-size:.8rem;opacity:.8}
+.flip.open{background:#fff;color:var(--ink);box-shadow:0 5px 0 var(--pl);border:2px solid var(--pl)}
+.flip.open .b{display:block}.flip.open .tap{display:none}.flip.open .num{color:var(--p)}.flip.open .t{color:var(--pd)}
+.flip:active{transform:translateY(3px)}
+@media (hover:hover){.flip:hover{transform:translateY(-3px)}}
+.word-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:12px}
+.word-col h4{margin-bottom:8px}
+.wgrid{display:flex;flex-wrap:wrap;gap:8px}
+.wbtn{border:2px solid var(--pl);background:#fff;border-radius:12px;padding:.45em .85em;font-weight:800;min-height:44px;transition:background .15s}
+.wbtn.pos{border-color:#BBF7D0;color:#0E6E31}.wbtn.neg{border-color:#FECACA;color:#991B1B}
+.wbtn.show{background:var(--pl)}
+@media (hover:hover){.wbtn:hover{background:var(--pl)}}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.example{font-size:1.05rem}
+.example .para{position:relative;border-radius:14px;padding:12px 14px;margin-bottom:10px;border:2px dashed transparent}
+.example .lab{display:none;font-size:.75rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;border-radius:8px;padding:.15em .6em;margin-bottom:6px;width:max-content}
+.example.struct .para{border-color:#D6CCFF;background:#FBFAFF}
+.example.struct .lab{display:block;background:var(--p);color:#fff}
+.example .adj{border-radius:6px;transition:background .2s}
+.example.hl .adj{background:#FFE58A;box-shadow:0 0 0 2px #FFE58A;font-weight:800}
+.tip .ic{color:#B08300;margin-right:.3em}
+.tip{background:#FFF7DB;border-left:5px solid var(--gold);border-radius:10px;padding:12px 14px;margin-top:14px}
+table.simple{border-collapse:collapse;width:100%;margin-top:8px}
+table.simple td,table.simple th{border:1px solid #E4E0F7;padding:8px 10px;text-align:left;vertical-align:top}
+table.simple th{background:var(--pl);color:var(--pd)}
+
+/* =========================================================
+   9. SIMULASI
+   ========================================================= */
+.prog{height:12px;background:var(--pl);border-radius:999px;overflow:hidden;margin:6px 0 18px}
+.prog > div{height:100%;background:linear-gradient(90deg,var(--p),#A48BFF);width:0;transition:width .35s}
+.q-meta{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:.9rem}
+.q-type{display:inline-block;background:var(--pl);color:var(--pd);font-weight:800;font-size:.8rem;border-radius:999px;padding:.2em .8em;margin-bottom:8px}
+.q-prompt{font-size:1.2rem;font-weight:800}
+.q-sentence{background:#FBFAFF;border:2px solid var(--pl);border-radius:14px;padding:14px 16px;margin:14px 0;font-size:1.15rem}
+.opts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.opt{border:2px solid #DCD5FA;background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;text-align:left;min-height:56px;display:flex;gap:10px;align-items:center;transition:background .15s,border-color .15s}
+.opt .k{flex:0 0 32px;height:32px;border-radius:10px;background:var(--pl);color:var(--pd);display:flex;align-items:center;justify-content:center}
+.opt.correct{background:var(--okl);border-color:var(--ok)}
+.opt.wrong{background:var(--badl);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+@media (hover:hover){.opt:not(:disabled):hover{background:var(--pl);border-color:var(--p)}}
+.feedback{margin-top:16px;border-radius:14px;padding:14px 16px;font-weight:600;animation:fadeIn .25s}
+.feedback.ok{background:var(--okl);border-left:6px solid var(--ok)}
+.feedback.no{background:var(--badl);border-left:6px solid var(--bad)}
+.feedback b{display:block;font-size:1.1rem;margin-bottom:4px}
+/* Drag the word */
+.pool,.bin{min-height:72px;border-radius:14px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.pool{background:#FBFAFF;border:2px dashed #CFC6F7;margin:12px 0}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bin{border:3px dashed #CFC6F7;background:#fff;flex-direction:column;align-items:stretch;min-height:150px;transition:background .15s,border-color .15s}
+.bin-title{font-weight:900;color:var(--pd);text-align:center;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:.4em}
+.bin-words{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.bin.over,.bin.target{background:var(--pl);border-color:var(--p)}
+.chip{border:2px solid var(--p);background:#fff;color:var(--pd);border-radius:12px;padding:.5em .9em;font-weight:800;min-height:46px;touch-action:none;user-select:none;-webkit-user-select:none;transition:background .15s,transform .1s}
+.chip.sel{background:var(--p);color:#fff;transform:scale(1.05)}
+.chip.correct{background:var(--okl);border-color:var(--ok);color:#0E6E31}
+.chip.wrong{background:var(--badl);border-color:var(--bad);color:#991B1B}
+@media (hover:hover){.chip:not(.sel):not(:disabled):hover{background:var(--pl)}}
+.ghost{position:fixed;z-index:200;pointer-events:none;transform:translate(-50%,-50%) scale(1.1);box-shadow:0 10px 24px rgba(0,0,0,.2);opacity:.95}
+/* Mark the word */
+.mark-text{line-height:2.4;font-size:1.2rem;background:#FBFAFF;border:2px solid var(--pl);border-radius:14px;padding:14px 16px;margin:14px 0}
+.tok{border:0;background:transparent;border-radius:8px;padding:.1em .25em;font-size:1.2rem;font-weight:600;border-bottom:3px solid transparent;transition:background .15s}
+.tok.on{background:#FFE58A;border-bottom-color:var(--gold)}
+.tok.correct{background:var(--okl);border-bottom-color:var(--ok)}
+.tok.wrong{background:var(--badl);border-bottom-color:var(--bad);text-decoration:line-through}
+.tok.missed{border-bottom:3px dashed var(--ok);background:#F0FDF4}
+.tok:disabled{cursor:default;color:var(--ink)}
+@media (hover:hover){.tok:not(:disabled):hover{background:var(--pl)}}
+.result-big{font-size:4rem;font-weight:900;color:var(--p);line-height:1}
+.status-msg .ic{margin-right:.35em}
+.feedback b .ic{margin-right:.25em}
+.status-msg{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--pl);font-weight:700}
+
+/* =========================================================
+   10. KUIS / GAME
+   ========================================================= */
+.lv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.lv{border:0;border-radius:20px;padding:18px 12px;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 6px 0 #261A5C;transition:transform .12s}
+.lv .n{font-size:2.2rem;font-weight:900;line-height:1}
+.lv .t{font-weight:800}
+.lv .s{display:flex;gap:3px}
+.lv .s .ic{width:1.3em;height:1.3em}
+.lv .n .ic{width:1em;height:1em}
+.lv:disabled{background:#C9C3E6;box-shadow:0 6px 0 #9E97C4;cursor:not-allowed}
+.lv:not(:disabled):active{transform:translateY(4px)}
+@media (hover:hover){.lv:not(:disabled):hover{transform:translateY(-4px)}}
+.hud{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-bottom:10px}
+.hud .pill{background:#fff;border-radius:999px;padding:.35em 1em;font-weight:800;color:var(--pd);box-shadow:0 3px 10px rgba(55,37,128,.1)}
+.hud .target-pill{background:var(--p);color:#fff}
+#gameArea{position:relative;height:62vh;min-height:340px;border-radius:20px;overflow:hidden;
+  background:linear-gradient(180deg,#F1EDFF 0,#fff 70%);border:3px solid var(--pl);touch-action:manipulation}
+#gameArea::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,var(--bad) 0 14px,transparent 14px 24px);opacity:.5}
+.fw{position:absolute;left:0;top:0;border:3px solid var(--p);background:#fff;color:var(--pd);font-weight:900;font-size:1.15rem;border-radius:999px;padding:.45em 1em;min-height:50px;white-space:nowrap;box-shadow:0 4px 0 var(--pl);will-change:transform;touch-action:manipulation}
+.fw.hit{background:var(--ok);border-color:var(--ok);color:#fff;animation:popOut .3s forwards}
+.fw.bad{background:var(--bad);border-color:var(--bad);color:#fff;animation:shake .3s, popOut .3s .25s forwards}
+.overlay{position:absolute;inset:0;background:rgba(30,27,58,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:5}
+.overlay .card{max-width:480px;width:100%;text-align:center;animation:popIn .35s}
+.stars-big{display:flex;justify-content:center;gap:8px;margin:8px 0}
+.stars-big .ic{width:52px;height:52px;stroke-width:1.6}
+.hud .pill{display:inline-flex;align-items:center;gap:4px}
+
+/* =========================================================
+   11. SERTIFIKAT
+   ========================================================= */
+#certImg{width:100%;border-radius:12px;box-shadow:0 10px 30px rgba(55,37,128,.18);background:#fff}
+
+/* =========================================================
+   12. MODAL & TOAST
+   ========================================================= */
+.modal{position:fixed;inset:0;background:rgba(30,27,58,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal .card{max-width:440px;width:100%;animation:popIn .3s}
+.set-lbl{display:flex;gap:12px;align-items:center}
+.set-lbl > .ic{width:28px;height:28px;color:var(--p)}
+.set-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #EEE}
+.switch{width:64px;height:36px;border-radius:999px;border:0;background:#CFC8EE;position:relative;transition:background .2s;flex:0 0 auto}
+.switch::after{content:"";position:absolute;top:4px;left:4px;width:28px;height:28px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.switch.on{background:var(--p)}
+.switch.on::after{left:32px}
+input[type=range]{width:100%;accent-color:var(--p);height:32px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--pd);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;z-index:150;transition:transform .3s,visibility .3s;max-width:92vw;text-align:center;visibility:hidden}
+#toast.show{transform:translateX(-50%) translateY(0);visibility:visible}
+
+/* =========================================================
+   13. ANIMASI
+   ========================================================= */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes popIn{0%{opacity:0;transform:scale(.6)}70%{transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+@keyframes popOut{to{opacity:0;transform:var(--pos) scale(1.5)}}
+@keyframes shake{0%,100%{margin-left:0}25%{margin-left:-6px}75%{margin-left:6px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* =========================================================
+   14. CETAK (hanya sertifikat)
+   ========================================================= */
+@media print{
+  body *{visibility:hidden}
+  #printArea,#printArea *{visibility:visible}
+  #printArea{position:fixed;inset:0;display:flex!important;align-items:center;justify-content:center}
+  #printArea img{width:100%;height:auto}
+  @page{size:A4 landscape;margin:8mm}
+}
+#printArea{display:none}
+
+@media (max-width:560px){
+  .card{padding:18px}
+  .bins{grid-template-columns:1fr}
+  .page-title{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div id="topbar" class="hidden">
+  <button id="btnHome" class="btn" aria-label="Kembali ke Menu Utama" title="HOME"><span data-ic="home"></span></button>
+  <div id="userChip" class="hidden"></div>
+</div>
+
+<!-- ================= 1. SPLASH ================= -->
+<section class="screen active" id="scr-splash">
+  <div class="bubble" style="width:120px;height:120px;left:6%;top:12%"><span>useful</span></div>
+  <div class="bubble" style="width:90px;height:90px;right:10%;top:18%;animation-delay:-3s"><span>harmful</span></div>
+  <div class="bubble" style="width:150px;height:150px;left:12%;bottom:10%;animation-delay:-5s"><span>beneficial</span></div>
+  <div class="bubble" style="width:100px;height:100px;right:14%;bottom:16%;animation-delay:-2s"><span>expensive</span></div>
+  <div class="splash-inner">
+    <span class="splash-tag">Bahasa Inggris · Kelas XII SMA</span>
+    <h1 class="splash-title">DISCUSSION<br>TEXT</h1>
+    <p class="splash-sub">Adjectives in Discussion Text</p>
+    <p class="splash-desc">Media Pembelajaran Interaktif · Writing</p>
+    <button class="btn btn-lg" id="btnStart"><span data-ic="play" data-icc="fill"></span> MULAI</button>
+  </div>
+  <div class="splash-foot">© 2026 Ade Juanda, M.Pd. – SMAN 10 Pandeglang</div>
+</section>
+
+<!-- ================= 2. IDENTITAS ================= -->
+<section class="screen" id="scr-identity">
+  <div class="card id-card">
+    <h2 class="page-title" data-hic="1"><span class="title-ic"><span data-ic="user"></span></span>Hello, Student!</h2>
+    <p class="page-sub">Isi identitasmu dulu, ya. Nama ini akan muncul di sertifikat.</p>
+    <form id="idForm" autocomplete="off" novalidate>
+      <div class="field">
+        <label for="inpName">Nama Lengkap</label>
+        <input id="inpName" type="text" maxlength="40" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Contoh: Siti Aisyah" enterkeyhint="next">
+      </div>
+      <div class="field">
+        <label for="inpClass">Kelas</label>
+        <select id="inpClass">
+          <option value="XII-3">XII-3</option><option value="XII-4">XII-4</option><option value="XII-5">XII-5</option>
+          <option value="XII-6">XII-6</option><option value="XII-7">XII-7</option><option value="XII-8">XII-8</option>
+          <option value="XII-9">XII-9</option><option value="XII-10">XII-10</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-lg" id="btnIdNext" style="width:100%" disabled>LANJUT <span data-ic="arrowR"></span></button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= 3. MENU UTAMA ================= -->
+<section class="screen" id="scr-menu">
+  <div class="wrap">
+    <div class="menu-head">
+      <h1>Menu Utama</h1>
+      <p class="page-sub" id="menuHello">Pilih menu untuk mulai belajar.</p>
+    </div>
+    <div class="menu-grid">
+      <button class="tile" data-go="beranda"><span class="ico"><span data-ic="compass"></span></span><span class="lbl">BERANDA</span><span class="hint">Tujuan & petunjuk</span></button>
+      <button class="tile" data-go="materi"><span class="ico"><span data-ic="book"></span></span><span class="lbl">MATERI</span><span class="hint">Pelajari konsep</span></button>
+      <button class="tile" data-go="simulasi"><span class="ico"><span data-ic="clip"></span></span><span class="lbl">SIMULASI</span><span class="hint">10 soal latihan</span></button>
+      <button class="tile" data-go="kuis"><span class="ico"><span data-ic="game"></span></span><span class="lbl">KUIS</span><span class="hint">Game 5 level</span></button>
+    </div>
+    <div class="menu-tools">
+      <button class="btn btn-ghost" id="btnSettings"><span data-ic="sliders"></span> Pengaturan</button>
+      <button class="btn btn-ghost" id="btnChangeUser"><span data-ic="userSwap"></span> Ganti Siswa</button>
+    </div>
+    <p class="footer">© 2026 Ade Juanda, M.Pd. – SMAN 10 Pandeglang</p>
+  </div>
+</section>
+
+<!-- ================= 4. BERANDA ================= -->
+<section class="screen" id="scr-beranda">
+  <div class="wrap">
+    <div class="card">
+      <h2 class="page-title">Welcome, <span id="berandaName"></span>!</h2>
+      <p class="page-sub">Selamat datang di media pembelajaran Discussion Text.</p>
+      <h3 style="color:var(--pd)" data-hic="1"><span class="title-ic"><span data-ic="target"></span></span>Tujuan Pembelajaran</h3>
+      <ol class="goal-list" id="goalList"></ol>
+      <h3 style="color:var(--pd);margin-top:18px" data-hic="1"><span class="title-ic"><span data-ic="compass"></span></span>Petunjuk Penggunaan</h3>
+      <div class="steps-help">
+        <div class="help-item"><span class="help-ic"><span data-ic="book"></span></span><p><b>MATERI</b> – Baca materi per tab. Ketuk kartu untuk membuka penjelasan.</p></div>
+        <div class="help-item"><span class="help-ic"><span data-ic="clip"></span></span><p><b>SIMULASI</b> – Kerjakan 10 soal. Nilaimu dikirim ke guru dan kamu mendapat sertifikat.</p></div>
+        <div class="help-item"><span class="help-ic"><span data-ic="game"></span></span><p><b>KUIS</b> – Mainkan game <i>Adjective Hunter</i> dari Level 1 sampai 5.</p></div>
+        <div class="help-item"><span class="help-ic"><span data-ic="home"></span></span><p><b>HOME</b> – Tombol di pojok kiri atas untuk kembali ke Menu Utama.</p></div>
+      </div>
+      <div class="btn-row"><button class="btn" data-go="materi">Mulai Belajar <span data-ic="arrowR"></span></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. MATERI ================= -->
+<section class="screen" id="scr-materi">
+  <div class="wrap">
+    <h2 class="page-title" data-hic="1"><span class="title-ic"><span data-ic="book"></span></span>Materi</h2>
+    <p class="page-sub">Discussion Text & Adjectives</p>
+    <div class="tabs" id="matTabs" role="tablist"></div>
+    <div class="card" id="matBody"></div>
+    <div class="pager">
+      <button class="btn btn-ghost" id="matPrev"><span data-ic="chevL"></span> Sebelumnya</button>
+      <button class="btn" id="matNext">Berikutnya <span data-ic="chevR"></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. SIMULASI ================= -->
+<section class="screen" id="scr-simulasi">
+  <div class="wrap">
+    <div id="simIntro" class="card" style="text-align:center">
+      <h2 class="page-title" data-hic="1"><span class="title-ic"><span data-ic="clip"></span></span>Simulasi Uji Pemahaman</h2>
+      <p class="page-sub">10 soal: Pilihan Ganda, Drag the Word, dan Mark the Word.</p>
+      <p>Setiap soal benar bernilai <b>10 poin</b>. Baca petunjuk di setiap soal dengan teliti.</p>
+      <div class="btn-row"><button class="btn btn-lg" id="btnSimStart">Mulai Simulasi <span data-ic="arrowR"></span></button></div>
+    </div>
+    <div id="simQuiz" class="hidden">
+      <div class="q-meta"><span id="simCount">Soal 1/10</span><span id="simScore">Skor: 0</span></div>
+      <div class="prog"><div id="simProg"></div></div>
+      <div class="card" id="simCard"></div>
+    </div>
+    <div id="simResult" class="card hidden" style="text-align:center"></div>
+  </div>
+</section>
+
+<!-- ================= 7. KUIS ================= -->
+<section class="screen" id="scr-kuis">
+  <div class="wrap">
+    <div id="kuisLevels">
+      <h2 class="page-title" data-hic="1"><span class="title-ic"><span data-ic="game"></span></span>Adjective Hunter</h2>
+      <p class="page-sub">Ketuk kata yang benar sebelum jatuh! Selesaikan Level 1–5 untuk mendapat sertifikat.</p>
+      <div class="lv-grid" id="lvGrid"></div>
+      <div class="card" style="margin-top:16px">
+        <b>Total skor terbaik: <span id="kuisTotal">0</span></b> · Bintang: <span id="kuisStars">0</span>/15
+        <span class="small-id">Kamu bisa mengulang level untuk memperbaiki bintang dan skor.</span>
+      </div>
+    </div>
+    <div id="gameView" class="hidden">
+      <div class="hud">
+        <span class="pill" id="hudLevel">Level 1</span>
+        <span class="pill target-pill" id="hudTarget">Target: ADJECTIVE</span>
+        <span class="pill" id="hudProg">0/8</span>
+        <span class="pill" id="hudScore">Skor 0</span>
+        <span class="pill" id="hudLives"></span>
+      </div>
+      <div id="gameArea">
+        <div class="overlay" id="gameOverlay"><div class="card" id="overlayCard"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8. SERTIFIKAT ================= -->
+<section class="screen" id="scr-sertifikat">
+  <div class="wrap">
+    <h2 class="page-title" data-hic="1"><span class="title-ic"><span data-ic="award"></span></span>Sertifikat Pencapaian</h2>
+    <p class="page-sub">Selamat! Simpan atau cetak sertifikatmu.</p>
+    <img id="certImg" alt="Sertifikat Pencapaian">
+    <div class="btn-row">
+      <button class="btn btn-gold" id="btnCertDl"><span data-ic="download"></span> Unduh PNG</button>
+      <button class="btn btn-ghost" id="btnCertPrint"><span data-ic="printer"></span> Cetak</button>
+      <button class="btn" data-go="menu">Menu Utama</button>
+    </div>
+    <p class="footer">© 2026 Ade Juanda, M.Pd. – SMAN 10 Pandeglang</p>
+  </div>
+</section>
+
+<!-- ================= MODAL PENGATURAN ================= -->
+<div class="modal" id="modalSettings" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <h3 class="page-title" id="setTitle" data-hic="1"><span class="title-ic"><span data-ic="sliders"></span></span>Pengaturan</h3>
+    <div class="set-row"><span class="set-lbl"><span data-ic="music"></span><span><b>Musik Latar</b><span class="small-id">Backsound ceria</span></span></span><button class="switch" id="swMusic" aria-label="Musik on/off"></button></div>
+    <div class="set-row"><span class="set-lbl"><span data-ic="bell"></span><span><b>Efek Suara</b><span class="small-id">Suara klik, benar, salah</span></span></span><button class="switch" id="swSfx" aria-label="Efek suara on/off"></button></div>
+    <div style="padding:14px 0">
+      <b class="set-lbl"><span data-ic="volume"></span> Volume: <span id="volVal">70</span>%</b>
+      <input type="range" id="volRange" min="0" max="100" step="5" value="70" aria-label="Volume">
+    </div>
+    <div class="btn-row"><button class="btn" id="btnSetClose">Selesai</button></div>
+  </div>
+</div>
+
+<!-- ================= MODAL KONFIRMASI ================= -->
+<div class="modal" id="modalConfirm" role="dialog" aria-modal="true">
+  <div class="card" style="text-align:center">
+    <h3 class="page-title" id="confTitle">Keluar?</h3>
+    <p id="confText">Progres yang sedang dikerjakan akan hilang.</p>
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="confNo">Batal</button>
+      <button class="btn" id="confYes">Ya, keluar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="printArea"><img id="printImg" alt=""></div>
+
+<script>
+/* =========================================================================
+   MPI DISCUSSION TEXT – ADJECTIVES
+   © 2026 Ade Juanda, M.Pd. – SMAN 10 Pandeglang
+   -------------------------------------------------------------------------
+   PENGATURAN GOOGLE SHEET:
+   Tempel URL Web App Google Apps Script di bawah ini (diawali https://).
+   Jika dibiarkan, nilai tetap tersimpan di perangkat dan akan terkirim
+   setelah URL diisi dan aplikasi dibuka kembali saat online.
+   ========================================================================= */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzFkN-PgF-SdqqlRPOpYJfk_wX8DR4fcEfAUeECmJ-d-UiF_L-97C3P4Ppl8UmNyOJ7LQ/exec";
+
+/* =========================================================================
+   IKON SVG (garis, 24×24) – menggantikan emoji agar tampil sama di semua perangkat
+   ========================================================================= */
+const ICONS = {
+  home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  book:'<path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h14"/><path d="M8 7.5h8M8 11h5"/>',
+  clip:'<rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="m9 13.5 2 2 4-4.5"/>',
+  game:'<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7.5 10.5v4M5.5 12.5h4"/><circle cx="15.5" cy="11.5" r=".9" class="dot"/><circle cx="18" cy="14" r=".9" class="dot"/>',
+  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  userSwap:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 11.5-5.4"/><path d="M15 17h6M18 14l3 3-3 3"/>',
+  play:'<path d="M7 4.8v14.4a1 1 0 0 0 1.5.86l11.6-7.2a1 1 0 0 0 0-1.72L8.5 3.94A1 1 0 0 0 7 4.8z"/>',
+  chevL:'<path d="m15 18-6-6 6-6"/>', chevR:'<path d="m9 18 6-6-6-6"/>',
+  arrowR:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  download:'<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',
+  printer:'<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',
+  award:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+  refresh:'<path d="M20 11a8 8 0 0 0-14.9-3M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.9 3M20 20v-4h-4"/>',
+  check:'<path d="m5 12.5 4.5 4.5L19 7"/>', x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  checkCircle:'<circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16 9.5"/>',
+  xCircle:'<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" class="dot"/>',
+  message:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  quote:'<path d="M4 7h5v5c0 3-1.5 4.5-4 5"/><path d="M14 7h5v5c0 3-1.5 4.5-4 5"/>',
+  bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+  star:'<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9z"/>',
+  pin:'<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+  alert:'<path d="M10.3 4 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/>',
+  thumbUp:'<path d="M7 10v11H4V10zM7 10l4-7a2 2 0 0 1 3 2l-1 5h6a2 2 0 0 1 2 2.3l-1.3 7A2 2 0 0 1 17.7 21H7"/>',
+  thumbDown:'<g transform="rotate(180 12 12)"><path d="M7 10v11H4V10zM7 10l4-7a2 2 0 0 1 3 2l-1 5h6a2 2 0 0 1 2 2.3l-1.3 7A2 2 0 0 1 17.7 21H7"/></g>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  heart:'<path d="M12 20s-8-4.6-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.4 12 20 12 20z"/>',
+  pointer:'<path d="M9 11V5a1.5 1.5 0 0 1 3 0v5"/><path d="M12 10V9a1.5 1.5 0 0 1 3 0v2M15 11a1.5 1.5 0 0 1 3 0v3a7 7 0 0 1-7 7h-.5a6 6 0 0 1-4.8-2.4L3.5 15.6a1.5 1.5 0 0 1 2.3-1.9L9 16.5"/>',
+  layers:'<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+  highlighter:'<path d="m9 11 6.5-6.5a2.1 2.1 0 0 1 3 3L12 14"/><path d="m9 11-3 3v3h3l3-3z"/><path d="M4 21h9"/>',
+  flag:'<path d="M5 21V4h11l-2 4 2 4H5"/>',
+  pause:'<rect x="6.5" y="5" width="3.5" height="14" rx="1"/><rect x="14" y="5" width="3.5" height="14" rx="1"/>',
+  phone:'<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
+  wifiOff:'<path d="m3 3 18 18"/><path d="M8.5 16.4a5 5 0 0 1 6.2-.6M5 12.9a10 10 0 0 1 4.6-2.6M19 12.9a10 10 0 0 0-2.4-1.8M2 9.3a15 15 0 0 1 4-2.6M22 9.3A15 15 0 0 0 11 5.5M12 20h.01"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  sparkles:'<path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9z"/>',
+  music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+  bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  volume:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19.5 6a8 8 0 0 1 0 12"/>'
+};
+/* ic("nama", "kelas-tambahan") -> string <svg> */
+function ic(n, cls) { return '<svg class="ic ' + (cls || "") + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (ICONS[n] || "") + '</svg>'; }
+/* Isi ikon pada elemen statis <span data-ic="..."> */
+document.querySelectorAll("[data-ic]").forEach(el => { el.outerHTML = ic(el.dataset.ic, el.dataset.icc); });
+
+/* =========================================================================
+   DATA KONTEN – guru cukup mengedit bagian ini.
+   Penanda *kata* = adjective (dipakai di contoh teks & soal Mark the Word).
+   ========================================================================= */
+const DATA = {
+  sekolah: "SMAN 10 Pandeglang",
+  guru: "Ade Juanda, M.Pd.",
+  jabatanGuru: "Guru Bahasa Inggris",
+  tujuan: [
+    "Siswa dapat mengidentifikasi adjectives dalam discussion text.",
+    "Siswa dapat membedakan adjectives yang mendukung argumen pro dan kontra."
+  ],
+
+  /* ---------- MATERI (5 tab) ---------- */
+  materi: [
+    {
+      tab: "1. Pengertian",
+      judul: "What is a Discussion Text?",
+      intro: "A <b>discussion text</b> presents an issue from <b>two sides</b>: arguments <b>for</b> (pro) and arguments <b>against</b> (kontra). Then the writer gives a conclusion or recommendation.<span class='small-id'>Teks diskusi menyajikan suatu isu dari dua sisi: argumen yang mendukung (pro) dan yang menentang (kontra), lalu ditutup dengan kesimpulan atau saran.</span>",
+      reveal: [
+        { ic: "target", t: "Social Function (Tujuan Teks)", b: "To present information and opinions about an issue from more than one point of view.<span class='small-id'>Menyajikan informasi dan pendapat tentang suatu isu dari lebih dari satu sudut pandang.</span>" },
+        { ic: "message", t: "Example Issues (Contoh Isu)", b: "<ul><li>Should students bring smartphones to school?</li><li>Is homework necessary?</li><li>Should students wear school uniforms?</li><li>Online learning vs. face-to-face learning</li></ul>" },
+        { ic: "search", t: "Discussion vs. Exposition", b: "<table class='simple'><tr><th>Discussion</th><th>Exposition</th></tr><tr><td>Shows <b>two sides</b> (pro & kontra)</td><td>Shows <b>one side</b> only</td></tr><tr><td>Fair and balanced</td><td>Tries to persuade</td></tr></table>" }
+      ]
+    },
+    {
+      tab: "2. Struktur",
+      judul: "Generic Structure",
+      intro: "Tap each card to see the explanation.<span class='small-id'>Ketuk setiap kartu untuk melihat penjelasannya.</span>",
+      struktur: [
+        { n: "01", t: "Issue", b: "Introduces the topic or problem.<span class='small-id' style='color:inherit'>Pengenalan isu/masalah yang dibahas.</span>" },
+        { n: "02", t: "Arguments For", b: "Reasons that <b>support</b> the issue (pro).<span class='small-id' style='color:inherit'>Alasan-alasan yang mendukung.</span>" },
+        { n: "03", t: "Arguments Against", b: "Reasons that <b>oppose</b> the issue (kontra).<span class='small-id' style='color:inherit'>Alasan-alasan yang menentang.</span>" },
+        { n: "04", t: "Conclusion / Recommendation", b: "The writer's opinion or suggestion.<span class='small-id' style='color:inherit'>Kesimpulan atau saran dari penulis.</span>" }
+      ]
+    },
+    {
+      tab: "3. Kebahasaan",
+      judul: "Language Features",
+      intro: "Discussion texts usually use these language features:<span class='small-id'>Unsur kebahasaan yang sering dipakai dalam teks diskusi:</span>",
+      reveal: [
+        { ic: "link", t: "Contrastive Conjunctions", b: "<b>however, but, on the other hand, although, whereas</b><br>Example: <i>Smartphones are useful. <u>However</u>, they can be distracting.</i><span class='small-id'>Kata hubung pertentangan untuk berpindah dari pro ke kontra.</span>" },
+        { ic: "quote", t: "Modal Verbs", b: "<b>can, may, should, must, might</b><br>Example: <i>Students <u>should</u> use smartphones wisely.</i>" },
+        { ic: "bulb", t: "Thinking & Opinion Words", b: "<b>I think, I believe, some people argue, others feel, in my opinion</b>" },
+        { ic: "star", t: "Adjectives (Evaluative)", b: "Words that describe and <b>evaluate</b>: <b>useful, harmful, important, expensive, beneficial</b>.<br>They help the writer show whether an argument is <b>positive (pro)</b> or <b>negative (kontra)</b>.<span class='small-id'>Kata sifat yang memberi penilaian. Fokus materi kita! Lanjut ke tab 4.</span>" }
+      ]
+    },
+    {
+      tab: "4. Adjectives",
+      judul: "Adjectives in Discussion Text",
+      intro: "An <b>adjective</b> is a word that <b>describes a noun</b> (people, things, ideas).<span class='small-id'>Adjective (kata sifat) adalah kata yang menerangkan kata benda.</span>",
+      reveal: [
+        { ic: "pin", t: "Position 1: Before a noun", b: "<i>a <b>useful</b> app</i> · <i>an <b>expensive</b> phone</i> · <i>a <b>harmful</b> habit</i><span class='small-id'>Adjective di depan kata benda (attributive).</span>" },
+        { ic: "pin", t: "Position 2: After be / linking verbs", b: "<i>The app <u>is</u> <b>useful</b>.</i> · <i>Homework <u>can be</u> <b>stressful</b>.</i> · <i>Uniforms <u>look</u> <b>neat</b>.</i><span class='small-id'>Adjective setelah is/am/are/be, look, feel, become (predicative).</span>" },
+        { ic: "alert", t: "Adjective or Adverb?", b: "<b>Adjective</b> describes a noun: <i>a <b>quick</b> answer</i>.<br><b>Adverb</b> describes a verb, often ends in <b>-ly</b>: <i>answer <b>quickly</b></i>.<span class='small-id'>Kata berakhiran -ly (quickly, easily, wisely) biasanya adverb, bukan adjective.</span>" }
+      ],
+      kata: true
+    },
+    {
+      tab: "5. Contoh Teks",
+      judul: "Example: Should Students Bring Smartphones to School?",
+      intro: "Use the buttons to show the structure and highlight the adjectives.<span class='small-id'>Gunakan tombol untuk menampilkan struktur dan menyorot adjective.</span>",
+      teks: [
+        { lab: "Issue", p: "Nowadays, a lot of students bring smartphones to school. Some people think it is a *good* idea, but others disagree." },
+        { lab: "Arguments For", p: "Smartphones are *useful* for learning. Students can find *important* information quickly. Smartphones are also *helpful* in an emergency because students can call their parents easily." },
+        { lab: "Arguments Against", p: "However, smartphones can be *distracting*. Some students play games during lessons. Social media can also be *harmful* when students spend too much time on it, and *expensive* phones may be stolen." },
+        { lab: "Conclusion", p: "In my opinion, smartphones can be *beneficial* if schools make *clear* rules. Students should use them wisely." }
+      ]
+    }
+  ],
+
+  /* Daftar kata untuk tab Adjectives (ketuk = arti) */
+  kataPro: [["useful","berguna"],["helpful","membantu"],["important","penting"],["beneficial","bermanfaat"],["effective","efektif"],["practical","praktis"],["affordable","terjangkau"],["safe","aman"],["healthy","sehat"],["flexible","fleksibel"]],
+  kataKontra: [["harmful","berbahaya/merugikan"],["dangerous","berbahaya"],["expensive","mahal"],["distracting","mengganggu konsentrasi"],["boring","membosankan"],["stressful","membuat stres"],["unfair","tidak adil"],["addictive","membuat kecanduan"],["costly","memakan biaya"],["risky","berisiko"]],
+
+  /* ---------- SIMULASI: 10 soal ----------
+     type: "mc" (pilihan ganda) | "drag" (seret ke kotak) | "mark" (tandai kata) */
+  simulasi: [
+    { type:"mc", prompt:"Which word is an ADJECTIVE in this sentence?", id:"Kata mana yang merupakan adjective?",
+      sentence:"Smartphones are useful for learning.", options:["Smartphones","are","useful","learning"], answer:2,
+      exp:"'Useful' describes smartphones (noun).", expId:"'Useful' menerangkan sifat kata benda 'smartphones'." },
+    { type:"mark", prompt:"Tap ALL the adjectives.", id:"Ketuk SEMUA adjective dalam kalimat.",
+      text:"Playing games is *fun*, but it can be *addictive*.",
+      exp:"'fun' and 'addictive' describe playing games.", expId:"'fun' (menyenangkan) dan 'addictive' (membuat kecanduan) adalah kata sifat." },
+    { type:"drag", prompt:"Drag each word to the correct box.", id:"Seret setiap kata ke kotak yang benar (atau ketuk kata, lalu ketuk kotak).",
+      bins:["Adjective","Not Adjective"], words:[["important",0],["quickly",1],["expensive",0],["school",1],["helpful",0],["study",1]],
+      exp:"important, expensive, helpful = adjectives. quickly = adverb, school = noun, study = verb.", expId:"Kata berakhiran -ly (quickly) adalah adverb, bukan adjective." },
+    { type:"mc", prompt:"Which adjective shows an argument AGAINST (negative)?", id:"Adjective mana yang menunjukkan argumen KONTRA (negatif)?",
+      options:["beneficial","harmful","effective","useful"], answer:1,
+      exp:"'Harmful' gives a negative evaluation.", expId:"'Harmful' (merugikan) bernilai negatif, cocok untuk argumen kontra." },
+    { type:"mark", prompt:"Tap ALL the adjectives.", id:"Ketuk SEMUA adjective dalam kalimat.",
+      text:"Homework is *useful* because it makes students *responsible* and *independent*.",
+      exp:"useful, responsible, independent are adjectives.", expId:"Ketiganya menerangkan sifat: homework (useful) dan students (responsible, independent)." },
+    { type:"drag", prompt:"Is the adjective for an argument FOR or AGAINST?", id:"Apakah adjective ini untuk argumen PRO atau KONTRA?",
+      bins:["Pro","Kontra"], binIc:["thumbUp","thumbDown"], words:[["beneficial",0],["dangerous",1],["effective",0],["boring",1],["helpful",0],["expensive",1]],
+      exp:"Positive adjectives support (pro); negative adjectives oppose (kontra).", expId:"Adjective positif → pro, adjective negatif → kontra." },
+    { type:"mc", prompt:"Which TWO words are adjectives?", id:"Dua kata mana yang merupakan adjective?",
+      sentence:"Studying at home is flexible and cheap.", options:["Studying & home","flexible & cheap","is & cheap","home & flexible"], answer:1,
+      exp:"'flexible' and 'cheap' describe studying at home.", expId:"'Home' adalah kata benda, 'studying' adalah kegiatan (gerund)." },
+    { type:"mark", prompt:"Tap ALL the adjectives.", id:"Ketuk SEMUA adjective dalam kalimat.",
+      text:"On the other hand, *long* lessons can make students *tired* and *bored*.",
+      exp:"long, tired, bored are adjectives.", expId:"'long' menerangkan lessons; 'tired' dan 'bored' menerangkan students." },
+    { type:"drag", prompt:"Topic: School Uniforms. FOR or AGAINST?", id:"Topik: Seragam Sekolah. Kelompokkan ke PRO atau KONTRA.",
+      bins:["Pro","Kontra"], binIc:["thumbUp","thumbDown"], words:[["practical",0],["unfair",1],["affordable",0],["uncomfortable",1],["useful",0],["costly",1]],
+      exp:"practical, affordable, useful = pro. unfair, uncomfortable, costly = kontra.", expId:"Kata berawalan un- (unfair, uncomfortable) biasanya bermakna negatif." },
+    { type:"mc", prompt:"Choose the adjective that SUPPORTS this argument.", id:"Pilih adjective yang MENDUKUNG argumen ini.",
+      sentence:"Argument FOR school uniforms: \"Uniforms look ____ and make students feel equal.\"", options:["neat","ugly","expensive","uncomfortable"], answer:0,
+      exp:"'Neat' (rapi) is positive, so it supports the argument.", expId:"Argumen pro membutuhkan adjective positif: neat." }
+  ],
+
+  /* ---------- KUIS / GAME: Adjective Hunter ---------- */
+  kata: {
+    pos:  ["useful","helpful","important","beneficial","effective","practical","safe","healthy","cheap","affordable","interesting","clean","modern","efficient","creative","flexible","fun","easy"],
+    neg:  ["harmful","dangerous","expensive","boring","unhealthy","unfair","noisy","costly","lazy","difficult","risky","stressful","addictive","useless","dirty","unsafe"],
+    noun: ["student","school","phone","teacher","money","opinion","rule","internet","homework","book","uniform","parent"],
+    verb: ["study","believe","argue","learn","discuss","think","use","agree"],
+    adv:  ["quickly","easily","wisely","carefully","really","slowly","happily","always"],
+    conj: ["however","because","although","but"]
+  },
+  levels: [
+    { nama:"Pemanasan",     target:"adj", label:"ADJECTIVE", distract:["noun"],                 speed:55,  spawn:1700, goal:8,  ratio:.55, miss:false,
+      en:"Tap only the ADJECTIVES!", idn:"Ketuk hanya kata sifat (adjective). Kata lain biarkan jatuh." },
+    { nama:"Lebih Cepat",   target:"adj", label:"ADJECTIVE", distract:["noun","verb"],          speed:75,  spawn:1450, goal:10, ratio:.5,  miss:false,
+      en:"Adjectives only! Watch out for verbs.", idn:"Hati-hati dengan kata kerja (verb)!" },
+    { nama:"Jebakan -ly",   target:"adj", label:"ADJECTIVE", distract:["adv","noun","verb","conj"], speed:90, spawn:1250, goal:12, ratio:.5, miss:true,
+      en:"Careful! Words ending in -ly are usually adverbs.", idn:"Awas! Kata berakhiran -ly biasanya adverb. Mulai level ini, adjective yang terlewat mengurangi nyawa." },
+    { nama:"Tim Pro", target:"pos", label:"ADJ. POSITIF (PRO)", distract:["neg","noun","verb"], speed:100, spawn:1150, goal:12, ratio:.45, miss:true,
+      en:"Tap only POSITIVE adjectives (for PRO arguments).", idn:"Ketuk hanya adjective POSITIF yang cocok untuk argumen PRO." },
+    { nama:"Tim Kontra", target:"neg", label:"ADJ. NEGATIF (KONTRA)", distract:["pos","adv","noun"], speed:115, spawn:1000, goal:14, ratio:.45, miss:true,
+      en:"Tap only NEGATIVE adjectives (for AGAINST arguments).", idn:"Ketuk hanya adjective NEGATIF yang cocok untuk argumen KONTRA." }
+  ]
+};
+
+/* =========================================================================
+   UTILITAS
+   ========================================================================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const predikat = n => n >= 90 ? "Sangat Baik" : n >= 75 ? "Baik" : n >= 60 ? "Cukup" : "Perlu Bimbingan";
+let toastTimer;
+function toast(msg, ms = 2600) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), ms); }
+/* Ubah "kata *adj* kata" menjadi token {w, punct, adj} */
+function tokenize(text) {
+  return text.split(/\s+/).filter(Boolean).map(raw => {
+    const m = raw.match(/^\*(.+?)\*([.,!?;:"]*)$/);
+    if (m) return { w: m[1], punct: m[2], adj: true };
+    const m2 = raw.match(/^(.*?)([.,!?;:"]*)$/);
+    return { w: m2[1], punct: m2[2], adj: false };
+  });
+}
+
+/* =========================================================================
+   AUDIO – Web Audio API (SFX + backsound sintetis, tanpa file eksternal)
+   ========================================================================= */
+const Sound = (() => {
+  const settings = Object.assign({ music: true, sfx: true, vol: 70 }, store.get("mpi_settings", {}));
+  let ctx = null, master, musicG, sfxG, noiseBuf, timer = null, nextT = 0, step = 0;
+  const EIGHTH = 60 / 116 / 2;
+  const midi = n => 440 * Math.pow(2, (n - 69) / 12);
+  // Progresi C – G – Am – F (ceria)
+  const CHORDS = [[60,64,67],[59,62,67],[57,60,64],[57,60,65]];
+  const BASS = [48,43,45,41];
+  const MELODY = [76,null,79,null,84,null,79,null, 74,null,79,null,83,null,79,null, 72,null,76,null,81,null,76,null, 72,null,77,null,81,null,79,null];
+  const ARP = [0,1,2,1,0,2,1,2];
+
+  function save() { store.set("mpi_settings", settings); }
+  function init() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!ctx) {
+      ctx = new AC();
+      master = ctx.createGain(); master.gain.value = settings.vol / 100; master.connect(ctx.destination);
+      musicG = ctx.createGain(); musicG.gain.value = 0.0001; musicG.connect(master);
+      sfxG = ctx.createGain(); sfxG.gain.value = 0.55; sfxG.connect(master);
+      noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
+      const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    if (ctx.state === "suspended") ctx.resume();
+    if (settings.music) startMusic();
+  }
+  function tone(freq, t, dur, type, out, peak) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + 0.05);
+  }
+  function hat(t, peak) {
+    const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf; f.type = "highpass"; f.frequency.value = 7000;
+    g.gain.setValueAtTime(peak, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
+    s.connect(f); f.connect(g); g.connect(musicG); s.start(t); s.stop(t + 0.05);
+  }
+  function playStep(s, t) {
+    const bar = Math.floor(s / 8), i = s % 8, ch = CHORDS[bar];
+    if (i % 2 === 0) tone(midi(BASS[bar]), t, 0.3, "triangle", musicG, 0.55);
+    tone(midi(ch[ARP[i]] + 12), t, 0.2, "triangle", musicG, 0.18);
+    if (MELODY[s]) tone(midi(MELODY[s]), t, 0.42, "sine", musicG, 0.28);
+    hat(t, i % 2 ? 0.12 : 0.05);
+  }
+  function sched() {
+    if (nextT < ctx.currentTime - 0.1) nextT = ctx.currentTime + 0.05; // cegah "menumpuk" setelah tab tertidur
+    while (nextT < ctx.currentTime + 0.12) { playStep(step, nextT); nextT += EIGHTH; step = (step + 1) % 32; }
+  }
+  function startMusic() {
+    if (!ctx || timer) return;
+    musicG.gain.cancelScheduledValues(ctx.currentTime);
+    musicG.gain.setTargetAtTime(0.22, ctx.currentTime, 0.2);
+    nextT = ctx.currentTime + 0.08; step = 0;
+    timer = setInterval(sched, 25);
+  }
+  function stopMusic() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (ctx) { musicG.gain.cancelScheduledValues(ctx.currentTime); musicG.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.05); }
+  }
+  function play(name) {
+    if (!ctx || !settings.sfx) return;
+    if (ctx.state === "suspended") ctx.resume();
+    const t = ctx.currentTime + 0.005;
+    switch (name) {
+      case "click": tone(900, t, 0.07, "sine", sfxG, 0.35); break;
+      case "pop": tone(1100, t, 0.08, "sine", sfxG, 0.4); tone(1650, t + 0.05, 0.1, "sine", sfxG, 0.3); break;
+      case "correct": tone(660, t, 0.12, "triangle", sfxG, 0.5); tone(990, t + 0.1, 0.22, "triangle", sfxG, 0.5); break;
+      case "wrong": tone(220, t, 0.14, "square", sfxG, 0.18); tone(165, t + 0.13, 0.22, "square", sfxG, 0.18); break;
+      case "level": [523, 659, 784, 1047].forEach((f, k) => tone(f, t + k * 0.11, 0.25, "triangle", sfxG, 0.45)); break;
+      case "lose": [392, 330, 262].forEach((f, k) => tone(f, t + k * 0.16, 0.3, "triangle", sfxG, 0.4)); break;
+    }
+  }
+  return {
+    settings, init, play,
+    setMusic(on) { settings.music = on; save(); on ? (init(), startMusic()) : stopMusic(); },
+    setSfx(on) { settings.sfx = on; save(); },
+    setVol(v) { settings.vol = v; save(); if (ctx) master.gain.setTargetAtTime(v / 100, ctx.currentTime, 0.05); },
+    suspend() { if (ctx && ctx.state === "running") ctx.suspend(); },
+    resume() { if (ctx && ctx.state === "suspended") ctx.resume(); }
+  };
+})();
+
+/* =========================================================================
+   GOOGLE SHEET – antrean offline (localStorage) + kirim otomatis saat online
+   ========================================================================= */
+const Sheet = {
+  KEY: "mpi_queue", busy: false,
+  hasUrl() { return /^https:\/\//.test(SHEET_URL); },
+  enqueue(rec) { const q = store.get(this.KEY, []); q.push(rec); store.set(this.KEY, q); return this.flush(); },
+  async flush() {
+    if (!store.get(this.KEY, []).length) return "empty";
+    if (!this.hasUrl()) return "nourl";
+    if (!navigator.onLine) return "offline";
+    if (this.busy) return "busy";
+    this.busy = true; let sent = 0;
+    try {
+      while (true) {
+        const q = store.get(this.KEY, []);
+        if (!q.length) break;
+        const rec = q[0];
+        await fetch(SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(rec) });
+        store.set(this.KEY, store.get(this.KEY, []).filter(r => r.id !== rec.id));
+        sent++;
+      }
+    } catch (e) { this.busy = false; return "fail"; }
+    this.busy = false;
+    return sent ? "sent" : "empty";
+  },
+  message(status) {
+    return ({
+      sent: ic("checkCircle") + "Nilai berhasil dikirim ke Google Sheet guru.",
+      nourl: ic("phone") + "Nilai tersimpan di perangkat (alamat Google Sheet belum diatur guru).",
+      offline: ic("wifiOff") + "Kamu sedang offline. Nilai tersimpan di perangkat dan akan dikirim otomatis saat online.",
+      fail: ic("phone") + "Gagal mengirim. Nilai tersimpan di perangkat dan akan dikirim ulang otomatis.",
+      busy: ic("clock") + "Sedang mengirim nilai…",
+      empty: ic("checkCircle") + "Nilai sudah terkirim."
+    })[status] || "";
+  }
+};
+window.addEventListener("online", () => Sheet.flush().then(s => { if (s === "sent") toast("Nilai tertunda berhasil dikirim."); }));
+
+/* =========================================================================
+   STATE & NAVIGASI
+   ========================================================================= */
+const state = { name: "", kelas: "", screen: "splash", simActive: false, gameActive: false };
+
+function show(id) {
+  if (state.screen === "kuis" && id !== "kuis") Game.stop();
+  $$(".screen").forEach(s => s.classList.remove("active"));
+  $("#scr-" + id).classList.add("active");
+  state.screen = id;
+  $("#topbar").classList.toggle("hidden", id === "splash");
+  $("#userChip").classList.toggle("hidden", !state.name || id === "splash");
+  window.scrollTo(0, 0);
+  if (id === "menu") $("#menuHello").textContent = "Hai, " + state.name + " (" + state.kelas + ")! Pilih menu untuk mulai belajar.";
+  if (id === "beranda") $("#berandaName").textContent = state.name.split(" ")[0];
+  if (id === "materi") Materi.render();
+  if (id === "simulasi" && !state.simActive) Sim.intro();
+  if (id === "kuis") Game.showLevels();
+}
+
+function confirmBox(title, text, yesLabel) {
+  return new Promise(res => {
+    $("#confTitle").textContent = title; $("#confText").textContent = text; $("#confYes").textContent = yesLabel || "Ya, keluar";
+    const m = $("#modalConfirm"); m.classList.add("show");
+    const done = v => { m.classList.remove("show"); $("#confYes").onclick = $("#confNo").onclick = null; res(v); };
+    $("#confYes").onclick = () => done(true);
+    $("#confNo").onclick = () => done(false);
+  });
+}
+
+async function goHome() {
+  if (!state.name) { show(state.screen === "identity" ? "splash" : "identity"); return; }
+  if (state.simActive || state.gameActive) {
+    Game.pause();
+    const ok = await confirmBox("Kembali ke Menu?", "Soal/level yang sedang dikerjakan belum selesai dan progresnya akan hilang.");
+    if (!ok) { Game.resumePrompt(); return; }
+    state.simActive = false; Game.stop();
+  }
+  show("menu");
+}
+
+/* Klik global: SFX klik untuk semua tombol + navigasi data-go */
+document.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  if (!b.hasAttribute("data-nosfx")) Sound.play("click");
+  const go = b.getAttribute("data-go");
+  if (go) show(go);
+});
+$("#btnHome").addEventListener("click", goHome);
+
+/* =========================================================================
+   SPLASH & IDENTITAS (input stabil: tidak ada render ulang saat mengetik)
+   ========================================================================= */
+$("#btnStart").addEventListener("click", () => {
+  Sound.init(); // sentuhan pertama -> izinkan audio (Safari/Chrome)
+  // Nama sengaja tidak diisi otomatis (perangkat/PID bisa dipakai bergantian); kelas terakhir diingat.
+  const last = store.get("mpi_user", null);
+  if (last && last.kelas) $("#inpClass").value = last.kelas;
+  show("identity");
+  setTimeout(() => { if (window.matchMedia("(pointer:fine)").matches) $("#inpName").focus(); }, 350);
+});
+const inpName = $("#inpName"), btnIdNext = $("#btnIdNext");
+inpName.addEventListener("input", () => { const ok = inpName.value.trim().length > 0; if (btnIdNext.disabled === ok) btnIdNext.disabled = !ok; });
+$("#idForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = inpName.value.replace(/\s+/g, " ").trim();
+  if (!name) { inpName.focus(); return; }
+  state.name = name.replace(/\b\w/g, c => c.toUpperCase());
+  state.kelas = $("#inpClass").value;
+  store.set("mpi_user", { name: state.name, kelas: state.kelas });
+  $("#userChip").innerHTML = ic("user") + esc(state.name + " · " + state.kelas);
+  inpName.blur();
+  show("menu");
+  Sheet.flush();
+});
+$("#btnChangeUser").addEventListener("click", () => { state.name = ""; inpName.value = ""; btnIdNext.disabled = true; show("identity"); });
+
+/* =========================================================================
+   PENGATURAN
+   ========================================================================= */
+function syncSettingsUI() {
+  $("#swMusic").classList.toggle("on", Sound.settings.music);
+  $("#swSfx").classList.toggle("on", Sound.settings.sfx);
+  $("#volRange").value = Sound.settings.vol; $("#volVal").textContent = Sound.settings.vol;
+}
+$("#btnSettings").addEventListener("click", () => { syncSettingsUI(); $("#modalSettings").classList.add("show"); });
+$("#btnSetClose").addEventListener("click", () => $("#modalSettings").classList.remove("show"));
+$("#modalSettings").addEventListener("click", e => { if (e.target.id === "modalSettings") e.currentTarget.classList.remove("show"); });
+$("#swMusic").addEventListener("click", () => { Sound.setMusic(!Sound.settings.music); syncSettingsUI(); });
+$("#swSfx").addEventListener("click", () => { Sound.setSfx(!Sound.settings.sfx); syncSettingsUI(); });
+$("#volRange").addEventListener("input", e => { const v = +e.target.value; $("#volVal").textContent = v; Sound.setVol(v); });
+
+/* =========================================================================
+   BERANDA
+   ========================================================================= */
+$("#goalList").innerHTML = DATA.tujuan.map(t => "<li>" + esc(t) + "</li>").join("");
+
+/* =========================================================================
+   MATERI (tab + klik-reveal + pagination)
+   ========================================================================= */
+const Materi = {
+  idx: 0,
+  render() {
+    $("#matTabs").innerHTML = DATA.materi.map((m, i) => `<button class="tab ${i === this.idx ? "on" : ""}" role="tab" data-tab="${i}">${esc(m.tab)}</button>`).join("");
+    const m = DATA.materi[this.idx];
+    let h = `<h3 class="page-title" style="font-size:1.35rem">${esc(m.judul)}</h3><p style="margin-bottom:14px">${m.intro}</p>`;
+    if (m.reveal) h += m.reveal.map(r => `<div class="reveal"><button class="reveal-btn"><span class="rb-t">${r.ic ? ic(r.ic) : ""}<span>${r.t}</span></span><span class="arr">${ic("chevR")}</span></button><div class="reveal-body">${r.b}</div></div>`).join("");
+    if (m.struktur) h += `<div class="struct-grid">${m.struktur.map(s => `<button class="flip"><span class="num">${s.n}</span><span class="t">${s.t}</span><span class="b">${s.b}</span><span class="tap">${ic("pointer")} Ketuk untuk membuka</span></button>`).join("")}</div>`;
+    if (m.kata) {
+      const col = (arr, cls) => arr.map(([w, a]) => `<button class="wbtn ${cls}" data-w="${esc(w)}" data-a="${esc(a)}">${esc(w)}</button>`).join("");
+      h += `<h4 style="margin-top:16px;color:var(--pd)">${ic("book")} Evaluative Adjectives <span class="small-id" style="display:inline">(ketuk untuk melihat arti)</span></h4>
+        <div class="word-cols"><div class="word-col"><h4 style="color:var(--ok)">${ic("thumbUp")} Positif → Argumen PRO</h4><div class="wgrid">${col(DATA.kataPro, "pos")}</div></div>
+        <div class="word-col"><h4 style="color:var(--bad)">${ic("thumbDown")} Negatif → Argumen KONTRA</h4><div class="wgrid">${col(DATA.kataKontra, "neg")}</div></div></div>
+        <div class="tip">${ic("bulb")}<b>Tip:</b> Untuk mengenali adjective, tanyakan: <i>"What is it like?"</i> (Seperti apa sifatnya?). Jawabannya biasanya adjective.</div>`;
+    }
+    if (m.teks) {
+      h += `<div class="btn-row" style="justify-content:flex-start;margin:0 0 14px"><button class="btn btn-ghost" id="btnStruct">${ic("layers")} Tampilkan Struktur</button><button class="btn btn-gold" id="btnHl">${ic("highlighter")} Highlight Adjectives</button></div>
+        <div class="example" id="exText">${m.teks.map(p => `<div class="para"><span class="lab">${esc(p.lab)}</span>${tokenize(p.p).map(t => t.adj ? `<span class="adj">${esc(t.w)}</span>${esc(t.punct)}` : esc(t.w + t.punct)).join(" ")}</div>`).join("")}</div>
+        <div class="tip">${ic("bulb")}Ada <b>9 adjectives</b> di teks ini. Perhatikan: <i>quickly, easily, wisely</i> adalah <b>adverb</b>, bukan adjective.</div>`;
+    }
+    $("#matBody").innerHTML = h;
+    $("#matPrev").disabled = this.idx === 0;
+    $("#matNext").innerHTML = (this.idx === DATA.materi.length - 1 ? "Ke Simulasi " : "Berikutnya ") + ic("chevR");
+  },
+  go(i) { this.idx = Math.max(0, Math.min(DATA.materi.length - 1, i)); this.render(); $("#scr-materi").scrollIntoView(); window.scrollTo(0, 0); }
+};
+$("#matTabs").addEventListener("click", e => { const b = e.target.closest(".tab"); if (b) Materi.go(+b.dataset.tab); });
+$("#matPrev").addEventListener("click", () => Materi.go(Materi.idx - 1));
+$("#matNext").addEventListener("click", () => { if (Materi.idx === DATA.materi.length - 1) show("simulasi"); else Materi.go(Materi.idx + 1); });
+$("#matBody").addEventListener("click", e => {
+  const r = e.target.closest(".reveal-btn"); if (r) { r.parentElement.classList.toggle("open"); return; }
+  const f = e.target.closest(".flip"); if (f) { f.classList.toggle("open"); return; }
+  const w = e.target.closest(".wbtn"); if (w) { const on = w.classList.toggle("show"); w.textContent = on ? w.dataset.w + " = " + w.dataset.a : w.dataset.w; return; }
+  if (e.target.closest("#btnHl")) { const on = $("#exText").classList.toggle("hl"); e.target.closest("#btnHl").innerHTML = ic("highlighter") + (on ? " Sembunyikan Highlight" : " Highlight Adjectives"); return; }
+  if (e.target.closest("#btnStruct")) { const on = $("#exText").classList.toggle("struct"); e.target.closest("#btnStruct").innerHTML = ic("layers") + (on ? " Sembunyikan Struktur" : " Tampilkan Struktur"); }
+});
+
+/* =========================================================================
+   SIMULASI (10 soal: MC, Drag the Word, Mark the Word)
+   ========================================================================= */
+const Sim = {
+  i: 0, correct: 0, answers: [], t0: 0, answered: false,
+  intro() { $("#simIntro").classList.remove("hidden"); $("#simQuiz").classList.add("hidden"); $("#simResult").classList.add("hidden"); },
+  start() {
+    this.i = 0; this.correct = 0; this.answers = []; this.t0 = Date.now(); state.simActive = true;
+    $("#simIntro").classList.add("hidden"); $("#simResult").classList.add("hidden"); $("#simQuiz").classList.remove("hidden");
+    this.render();
+  },
+  render() {
+    const q = DATA.simulasi[this.i], n = DATA.simulasi.length;
+    this.answered = false;
+    $("#simCount").textContent = `Soal ${this.i + 1}/${n}`;
+    $("#simScore").textContent = `Skor: ${this.correct * 10}`;
+    $("#simProg").style.width = (this.i / n * 100) + "%";
+    const typeName = { mc: "Pilihan Ganda", drag: "Drag the Word", mark: "Mark the Word" }[q.type];
+    let h = `<span class="q-type">${typeName}</span><p class="q-prompt">${esc(q.prompt)}<span class="small-id">${esc(q.id)}</span></p>`;
+    if (q.type === "mc") {
+      if (q.sentence) h += `<div class="q-sentence">${esc(q.sentence)}</div>`; else h += `<div style="height:14px"></div>`;
+      h += `<div class="opts">${q.options.map((o, k) => `<button class="opt" data-k="${k}" data-nosfx><span class="k">${"ABCD"[k]}</span><span>${esc(o)}</span></button>`).join("")}</div>`;
+    } else if (q.type === "mark") {
+      h += `<div class="mark-text">${tokenize(q.text).map((t, k) => `<button class="tok" data-k="${k}">${esc(t.w)}</button>${esc(t.punct)}`).join(" ")}</div>
+        <div class="btn-row"><button class="btn" id="btnCheck" data-nosfx>${ic("check")} Periksa Jawaban</button></div>`;
+    } else {
+      const words = shuffle(q.words.map((w, k) => ({ w: w[0], bin: w[1], k })));
+      h += `<div class="pool dropzone" data-bin="-1">${words.map(o => `<button class="chip" data-k="${o.k}" data-nosfx>${esc(o.w)}</button>`).join("")}</div>
+        <div class="bins">${q.bins.map((b, k) => `<div class="bin dropzone" data-bin="${k}"><div class="bin-title">${q.binIc ? ic(q.binIc[k]) : ""}${esc(b)}</div><div class="bin-words"></div></div>`).join("")}</div>
+        <div class="btn-row"><button class="btn" id="btnCheck" data-nosfx>${ic("check")} Periksa Jawaban</button></div>`;
+    }
+    h += `<div id="fbBox"></div>`;
+    $("#simCard").innerHTML = h;
+    if (q.type === "drag") Drag.setup($("#simCard"));
+  },
+  feedback(ok, q, detail) {
+    this.answered = true;
+    if (ok) this.correct++;
+    this.answers.push((this.i + 1) + ":" + (ok ? "B" : "S") + (detail ? "(" + detail + ")" : ""));
+    Sound.play(ok ? "correct" : "wrong");
+    $("#simScore").textContent = `Skor: ${this.correct * 10}`;
+    const last = this.i === DATA.simulasi.length - 1;
+    $("#fbBox").innerHTML = `<div class="feedback ${ok ? "ok" : "no"}"><b>${ok ? ic("checkCircle") + "Correct! Benar!" : ic("xCircle") + "Not quite. Belum tepat."}</b>${esc(q.exp)}<span class="small-id">${esc(q.expId)}</span></div>
+      <div class="btn-row"><button class="btn btn-ok" id="btnNextQ">${last ? ic("flag") + " Lihat Hasil" : "Soal Berikutnya " + ic("arrowR")}</button></div>`;
+    const chk = $("#btnCheck"); if (chk) chk.remove();
+    $("#btnNextQ").scrollIntoView({ behavior: "smooth", block: "center" });
+  },
+  next() { if (this.i < DATA.simulasi.length - 1) { this.i++; this.render(); window.scrollTo(0, 0); } else this.finish(); },
+  async finish() {
+    state.simActive = false;
+    $("#simProg").style.width = "100%";
+    const n = DATA.simulasi.length, score = Math.round(this.correct / n * 100), pred = predikat(score);
+    const dur = Math.round((Date.now() - this.t0) / 1000);
+    $("#simQuiz").classList.add("hidden");
+    const r = $("#simResult"); r.classList.remove("hidden");
+    r.innerHTML = `<h2 class="page-title" data-hic="1"><span class="title-ic">${ic("flag")}</span>Hasil Simulasi</h2><p class="page-sub">${esc(state.name)} · ${esc(state.kelas)}</p>
+      <div class="result-big">${score}</div><p style="font-weight:800;font-size:1.2rem;margin-top:6px">${pred}</p>
+      <p>Benar <b>${this.correct}</b> dari ${n} soal · Waktu ${Math.floor(dur / 60)} menit ${dur % 60} detik</p>
+      <div class="status-msg" id="simStatus">${ic("clock")}Menyimpan nilai…</div>
+      <div class="btn-row"><button class="btn btn-gold" id="btnSimCert">${ic("award")} Lihat Sertifikat</button><button class="btn btn-ghost" id="btnSimAgain">${ic("refresh")} Ulangi</button><button class="btn" data-go="menu">Menu Utama</button></div>`;
+    Sound.play(score >= 60 ? "level" : "lose");
+    this.lastResult = { score, pred, correct: this.correct, n };
+    const status = await Sheet.enqueue({ id: uid(), waktu: new Date().toLocaleString("id-ID"), nama: state.name, kelas: state.kelas, jenis: "Simulasi",
+      skor: score, benar: this.correct, total: n, predikat: pred, durasi: dur, detail: this.answers.join(" ") });
+    const st = $("#simStatus"); if (st) st.innerHTML = Sheet.message(status);
+  }
+};
+$("#btnSimStart").addEventListener("click", () => Sim.start());
+$("#simResult").addEventListener("click", e => {
+  if (e.target.closest("#btnSimAgain")) Sim.start();
+  if (e.target.closest("#btnSimCert")) { const r = Sim.lastResult; Cert.make("Simulasi", `Nilai: ${r.score} (${r.pred}) · Benar ${r.correct}/${r.n} soal`, "telah menyelesaikan Simulasi Uji Pemahaman"); }
+});
+$("#simCard").addEventListener("click", e => {
+  const q = DATA.simulasi[Sim.i];
+  if (e.target.closest("#btnNextQ")) { Sim.next(); return; }
+  if (Sim.answered) return;
+  // Pilihan ganda
+  const opt = e.target.closest(".opt");
+  if (opt && q.type === "mc") {
+    const k = +opt.dataset.k, ok = k === q.answer;
+    $$(".opt", $("#simCard")).forEach(b => { b.disabled = true; if (+b.dataset.k === q.answer) b.classList.add("correct"); });
+    if (!ok) opt.classList.add("wrong");
+    Sim.feedback(ok, q, "ABCD"[k]);
+    return;
+  }
+  // Mark the word
+  const tok = e.target.closest(".tok");
+  if (tok && q.type === "mark") { tok.classList.toggle("on"); return; }
+  if (e.target.closest("#btnCheck")) {
+    if (q.type === "mark") {
+      const toks = tokenize(q.text), btns = $$(".tok", $("#simCard"));
+      if (!btns.some(b => b.classList.contains("on"))) { toast("Ketuk dulu kata yang menurutmu adjective."); return; }
+      let ok = true;
+      btns.forEach((b, k) => {
+        const on = b.classList.contains("on"), adj = toks[k].adj;
+        b.disabled = true; b.classList.remove("on");
+        if (on && adj) b.classList.add("correct");
+        else if (on && !adj) { b.classList.add("wrong"); ok = false; }
+        else if (!on && adj) { b.classList.add("missed"); ok = false; }
+      });
+      Sim.feedback(ok, q);
+    } else if (q.type === "drag") {
+      if ($$(".pool .chip", $("#simCard")).length) { toast("Masih ada kata yang belum diletakkan."); return; }
+      let ok = true;
+      $$(".bin", $("#simCard")).forEach(bin => {
+        const b = +bin.dataset.bin;
+        $$(".chip", bin).forEach(c => { const right = q.words[+c.dataset.k][1] === b; c.classList.add(right ? "correct" : "wrong"); c.disabled = true; if (!right) ok = false; });
+      });
+      Drag.selected = null;
+      Sim.feedback(ok, q);
+    }
+  }
+});
+
+/* ---------- Drag the Word: Pointer Events (mouse + sentuh) + mode ketuk ---------- */
+const Drag = {
+  selected: null,
+  setup(root) {
+    const self = this; self.selected = null;
+    const moveTo = (chip, zone) => {
+      const target = zone.classList.contains("bin") ? $(".bin-words", zone) : zone;
+      target.appendChild(chip); chip.classList.remove("sel"); self.selected = null;
+      $$(".bin", root).forEach(b => b.classList.remove("target"));
+      Sound.play("pop");
+    };
+    $$(".chip", root).forEach(chip => {
+      let sx, sy, dragging = false, ghost = null, pid = null;
+      chip.addEventListener("pointerdown", e => {
+        if (chip.disabled || Sim.answered) return;
+        sx = e.clientX; sy = e.clientY; dragging = false; pid = e.pointerId;
+        try { chip.setPointerCapture(pid); } catch (er) {}
+      });
+      chip.addEventListener("pointermove", e => {
+        if (pid !== e.pointerId) return;
+        if (!dragging && Math.hypot(e.clientX - sx, e.clientY - sy) > 8) {
+          dragging = true; ghost = chip.cloneNode(true); ghost.classList.add("ghost"); document.body.appendChild(ghost); chip.style.opacity = ".35";
+        }
+        if (dragging) {
+          ghost.style.left = e.clientX + "px"; ghost.style.top = e.clientY + "px";
+          const z = document.elementFromPoint(e.clientX, e.clientY);
+          $$(".bin", root).forEach(b => b.classList.toggle("over", !!z && b.contains(z)));
+        }
+      });
+      const end = e => {
+        if (pid !== e.pointerId) return;
+        pid = null;
+        if (dragging) {
+          const z = document.elementFromPoint(e.clientX, e.clientY);
+          const zone = z && z.closest(".dropzone");
+          if (ghost) ghost.remove(); ghost = null; chip.style.opacity = "";
+          $$(".bin", root).forEach(b => b.classList.remove("over"));
+          if (zone && root.contains(zone)) moveTo(chip, zone);
+          dragging = false;
+        } else if (e.type === "pointerup") {
+          // mode ketuk: pilih kata, lalu ketuk kotak
+          if (self.selected === chip) { chip.classList.remove("sel"); self.selected = null; $$(".bin", root).forEach(b => b.classList.remove("target")); }
+          else { if (self.selected) self.selected.classList.remove("sel"); self.selected = chip; chip.classList.add("sel"); $$(".bin", root).forEach(b => b.classList.add("target")); Sound.play("click"); }
+        }
+      };
+      chip.addEventListener("pointerup", end);
+      chip.addEventListener("pointercancel", end);
+    });
+    $$(".dropzone", root).forEach(zone => zone.addEventListener("click", e => {
+      if (e.target.closest(".chip") || !self.selected) return;
+      moveTo(self.selected, zone);
+    }));
+  }
+};
+
+/* Bintang SVG: n terisi dari 3 */
+function stars(n, on, off) { let h = ""; for (let k = 0; k < 3; k++) h += '<span style="color:' + (k < n ? on : off) + ';display:inline-flex">' + ic("star", "fill") + '</span>'; return h; }
+
+/* =========================================================================
+   KUIS: GAME "ADJECTIVE HUNTER" (5 level progresif)
+   ========================================================================= */
+const Game = {
+  lv: 0, words: [], running: false, paused: false, raf: 0, last: 0, acc: 0, score: 0, lives: 3, got: 0, cfg: null,
+  key() { return "mpi_kuis_" + state.name + "|" + state.kelas; },
+  prog() { return store.get(this.key(), { stars: [0,0,0,0,0], best: [0,0,0,0,0], unlocked: 1 }); },
+  showLevels() {
+    this.stop();
+    $("#kuisLevels").classList.remove("hidden"); $("#gameView").classList.add("hidden");
+    const p = this.prog();
+    $("#lvGrid").innerHTML = DATA.levels.map((L, i) => {
+      const locked = i >= p.unlocked;
+      return `<button class="lv" data-lv="${i}" ${locked ? "disabled" : ""}><span class="n">${locked ? ic("lock") : i + 1}</span><span class="t">${esc(L.nama)}</span>
+        <span class="s">${stars(p.stars[i], "#FFD54A", "rgba(255,255,255,.45)")}</span><span class="small-id" style="color:#fff;opacity:.85">${locked ? "Terkunci" : "Skor terbaik " + p.best[i]}</span></button>`;
+    }).join("");
+    $("#kuisTotal").textContent = p.best.reduce((a, b) => a + b, 0);
+    $("#kuisStars").textContent = p.stars.reduce((a, b) => a + b, 0);
+  },
+  pools(type) {
+    const K = DATA.kata;
+    if (type === "adj") return K.pos.concat(K.neg);
+    return K[type] || [];
+  },
+  open(i) {
+    this.lv = i; this.cfg = DATA.levels[i];
+    $("#kuisLevels").classList.add("hidden"); $("#gameView").classList.remove("hidden");
+    this.reset();
+    const L = this.cfg;
+    this.overlay(`<h3 class="page-title">Level ${i + 1}: ${esc(L.nama)}</h3>
+      <p style="font-size:1.15rem;font-weight:800;margin:8px 0">${esc(L.en)}</p><p class="small-id" style="font-size:.95rem">${esc(L.idn)}</p>
+      <p style="margin-top:10px">${ic("target")} Kumpulkan <b>${L.goal}</b> kata · ${ic("heart", "fill ic-red")} 3 nyawa</p>
+      <div class="btn-row"><button class="btn btn-lg" id="gStart">Mulai ${ic("play", "fill")}</button></div>`);
+  },
+  reset() {
+    this.clearWords(); this.score = 0; this.lives = 3; this.got = 0; this.acc = 0; this.running = false; this.paused = false;
+    this.hud();
+  },
+  hud() {
+    const L = this.cfg; if (!L) return;
+    $("#hudLevel").textContent = "Level " + (this.lv + 1);
+    $("#hudTarget").textContent = "Target: " + L.label;
+    $("#hudProg").innerHTML = ic("target") + " " + this.got + "/" + L.goal;
+    $("#hudScore").textContent = "Skor " + this.score;
+    const lv = Math.max(0, this.lives); $("#hudLives").innerHTML = ic("heart", "fill ic-red").repeat(lv) + ic("heart", "ic-mute").repeat(3 - lv);
+  },
+  overlay(html) { $("#overlayCard").innerHTML = html; $("#gameOverlay").classList.remove("hidden"); },
+  hideOverlay() { $("#gameOverlay").classList.add("hidden"); },
+  begin() {
+    this.hideOverlay(); this.running = true; this.paused = false; state.gameActive = true;
+    this.last = performance.now(); this.acc = this.cfg.spawn - 300;
+    this.raf = requestAnimationFrame(t => this.loop(t));
+  },
+  loop(ts) {
+    if (!this.running || this.paused) return;
+    const dt = Math.min(0.05, (ts - this.last) / 1000); this.last = ts;
+    const area = $("#gameArea"), H = area.clientHeight;
+    const speed = this.cfg.speed * Math.max(0.85, Math.min(1.6, H / 480));
+    this.acc += dt * 1000;
+    if (this.acc >= this.cfg.spawn) { this.acc = 0; this.spawn(); }
+    for (let k = this.words.length - 1; k >= 0; k--) {
+      const w = this.words[k];
+      if (w.done) continue;
+      w.y += speed * dt;
+      w.el.style.transform = `translate(${w.x}px,${w.y}px)`;
+      if (w.y > H) {
+        w.el.remove(); this.words.splice(k, 1);
+        if (w.target && this.cfg.miss) { this.loseLife(); if (!this.running) return; }
+      }
+    }
+    this.raf = requestAnimationFrame(t => this.loop(t));
+  },
+  spawn() {
+    const L = this.cfg, area = $("#gameArea");
+    const isT = Math.random() < L.ratio;
+    const pool = isT ? this.pools(L.target) : L.distract.reduce((a, t) => a.concat(this.pools(t)), []);
+    // hindari kata yang sama muncul bersamaan
+    const onScreen = this.words.map(w => w.text);
+    let text = pick(pool), guard = 0;
+    while (onScreen.includes(text) && guard++ < 10) text = pick(pool);
+    const el = document.createElement("button");
+    el.className = "fw"; el.textContent = text; el.setAttribute("data-nosfx", "");
+    el.style.visibility = "hidden";
+    area.appendChild(el);
+    const maxX = Math.max(0, area.clientWidth - el.offsetWidth - 8);
+    const w = { el, text, target: isT, x: 4 + Math.random() * maxX, y: -el.offsetHeight - 4, done: false };
+    el.style.transform = `translate(${w.x}px,${w.y}px)`; el.style.visibility = "";
+    el.addEventListener("pointerdown", e => { e.preventDefault(); this.hit(w); });
+    this.words.push(w);
+  },
+  hit(w) {
+    if (!this.running || this.paused || w.done) return;
+    w.done = true;
+    w.el.style.setProperty("--pos", `translate(${w.x}px,${w.y}px)`);
+    if (w.target) {
+      this.score += 10; this.got++; Sound.play("pop"); w.el.classList.add("hit");
+    } else {
+      Sound.play("wrong"); w.el.classList.add("bad");
+      if (navigator.vibrate) try { navigator.vibrate(80); } catch (e) {}
+    }
+    setTimeout(() => { w.el.remove(); this.words = this.words.filter(x => x !== w); }, 560);
+    if (!w.target) this.loseLife();
+    this.hud();
+    if (w.target && this.got >= this.cfg.goal) this.win();
+  },
+  loseLife() {
+    this.lives--; this.hud();
+    const a = $("#gameArea"); a.style.borderColor = "var(--bad)"; setTimeout(() => a.style.borderColor = "", 250);
+    if (this.lives <= 0) this.lose();
+  },
+  async win() {
+    this.running = false; state.gameActive = false; cancelAnimationFrame(this.raf);
+    setTimeout(() => this.clearWords(), 400);
+    const stars = Math.max(1, this.lives), bonus = this.lives * 20;
+    this.score += bonus; this.hud();
+    const p = this.prog();
+    p.stars[this.lv] = Math.max(p.stars[this.lv], stars);
+    p.best[this.lv] = Math.max(p.best[this.lv], this.score);
+    p.unlocked = Math.max(p.unlocked, Math.min(DATA.levels.length, this.lv + 2));
+    store.set(this.key(), p);
+    Sound.play("level");
+    const last = this.lv === DATA.levels.length - 1;
+    this.overlay(`<h3 class="page-title" data-hic="1"><span class="title-ic">${ic(last ? "award" : "sparkles")}</span>${last ? "Semua Level Selesai!" : "Level " + (this.lv + 1) + " Selesai!"}</h3>
+      <div class="stars-big">${window.stars(stars, "var(--gold)", "#DDD8F2")}</div>
+      <p>Skor: <b>${this.score}</b> <span class="small-id" style="display:inline">(bonus nyawa +${bonus})</span></p>
+      ${last ? `<div class="status-msg" id="kuisStatus">${ic("clock")}Menyimpan nilai…</div>` : ""}
+      <div class="btn-row">${last ? `<button class="btn btn-gold" id="gCert">${ic("award")} Lihat Sertifikat</button>` : `<button class="btn btn-ok" id="gNext">Level ${this.lv + 2} ${ic("arrowR")}</button>`}
+      <button class="btn btn-ghost" id="gLevels">Pilih Level</button></div>`);
+    if (last) {
+      const total = p.best.reduce((a, b) => a + b, 0), st = p.stars.reduce((a, b) => a + b, 0);
+      this.lastResult = { total, stars: st };
+      const status = await Sheet.enqueue({ id: uid(), waktu: new Date().toLocaleString("id-ID"), nama: state.name, kelas: state.kelas, jenis: "Kuis (Game)",
+        skor: total, benar: 5, total: 5, predikat: st + "/15 bintang", durasi: "", detail: "Bintang per level: " + p.stars.join("-") + " | Skor per level: " + p.best.join("-") });
+      const el = $("#kuisStatus"); if (el) el.innerHTML = Sheet.message(status);
+    }
+  },
+  lose() {
+    this.running = false; state.gameActive = false; cancelAnimationFrame(this.raf);
+    setTimeout(() => this.clearWords(), 400);
+    Sound.play("lose");
+    this.overlay(`<h3 class="page-title" data-hic="1"><span class="title-ic">${ic("xCircle")}</span>Nyawa Habis</h3><p>Kamu mengumpulkan <b>${this.got}</b> dari ${this.cfg.goal} kata. Ayo coba lagi!</p>
+      <p class="small-id">${esc(this.cfg.idn)}</p>
+      <div class="btn-row"><button class="btn" id="gRetry">${ic("refresh")} Ulangi Level</button><button class="btn btn-ghost" id="gLevels">Pilih Level</button></div>`);
+  },
+  pause() {
+    if (!this.running || this.paused) return;
+    this.paused = true; cancelAnimationFrame(this.raf);
+  },
+  resumePrompt() {
+    if (!this.running || !this.paused) return;
+    this.overlay(`<h3 class="page-title" data-hic="1"><span class="title-ic">${ic("pause")}</span>Jeda</h3><p>Siap melanjutkan?</p><div class="btn-row"><button class="btn btn-lg" id="gResume">Lanjutkan ${ic("play", "fill")}</button></div>`);
+  },
+  resume() {
+    this.hideOverlay(); this.paused = false; this.last = performance.now();
+    this.raf = requestAnimationFrame(t => this.loop(t));
+  },
+  clearWords() { this.words.forEach(w => w.el.remove()); this.words = []; $$("#gameArea .fw").forEach(el => el.remove()); },
+  stop() { this.running = false; this.paused = false; state.gameActive = false; cancelAnimationFrame(this.raf); this.clearWords(); }
+};
+$("#lvGrid").addEventListener("click", e => { const b = e.target.closest(".lv"); if (b && !b.disabled) Game.open(+b.dataset.lv); });
+$("#overlayCard").addEventListener("click", e => {
+  const id = e.target.closest("button") && e.target.closest("button").id;
+  if (id === "gStart") Game.begin();
+  else if (id === "gNext") Game.open(Game.lv + 1);
+  else if (id === "gRetry") Game.open(Game.lv);
+  else if (id === "gLevels") Game.showLevels();
+  else if (id === "gResume") Game.resume();
+  else if (id === "gCert") { const r = Game.lastResult; Cert.make("Kuis", `Skor total: ${r.total} · Bintang: ${r.stars}/15`, "telah menyelesaikan seluruh level Game Adjective Hunter"); }
+});
+
+/* Jeda otomatis saat tab/aplikasi ditinggalkan */
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) { Game.pause(); Sound.suspend(); }
+  else { Sound.resume(); Game.resumePrompt(); }
+});
+
+/* =========================================================================
+   SERTIFIKAT (digambar dengan <canvas>, unduh PNG / cetak)
+   ========================================================================= */
+const Cert = {
+  dataUrl: "",
+  make(jenis, nilai, kalimat) {
+    const W = 1600, H = 1131, c = document.createElement("canvas"); c.width = W; c.height = H;
+    const g = c.getContext("2d");
+    const serif = 'Georgia, "Times New Roman", serif', sans = '"Segoe UI", -apple-system, Roboto, Arial, sans-serif';
+    // latar
+    g.fillStyle = "#FFFFFF"; g.fillRect(0, 0, W, H);
+    const grd = g.createLinearGradient(0, 0, W, H); grd.addColorStop(0, "#6D4AFF"); grd.addColorStop(1, "#372580");
+    g.fillStyle = grd; g.fillRect(0, 0, W, 26); g.fillRect(0, H - 26, W, 26); g.fillRect(0, 0, 26, H); g.fillRect(W - 26, 0, 26, H);
+    g.strokeStyle = "#B9A8FF"; g.lineWidth = 3; g.strokeRect(54, 54, W - 108, H - 108);
+    g.strokeStyle = "#EDE9FF"; g.lineWidth = 10; g.strokeRect(70, 70, W - 140, H - 140);
+    // ornamen sudut
+    g.fillStyle = "rgba(109,74,255,.10)";
+    [[0, 0], [W, 0], [0, H], [W, H]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 220, 0, Math.PI * 2); g.fill(); });
+    // medali
+    const mx = W / 2, my = 205;
+    g.fillStyle = "#F5B700"; g.beginPath(); g.arc(mx, my, 70, 0, Math.PI * 2); g.fill();
+    g.fillStyle = "#FFD54A"; g.beginPath(); g.arc(mx, my, 54, 0, Math.PI * 2); g.fill();
+    g.fillStyle = "#B08300"; g.beginPath();
+    for (let k = 0; k < 10; k++) { const r = k % 2 ? 18 : 40, a = -Math.PI / 2 + k * Math.PI / 5; g.lineTo(mx + r * Math.cos(a), my + r * Math.sin(a)); }
+    g.closePath(); g.fill();
+    // teks
+    g.textAlign = "center"; g.textBaseline = "alphabetic";
+    g.fillStyle = "#372580"; g.font = `900 72px ${sans}`; g.fillText("CERTIFICATE OF ACHIEVEMENT", W / 2, 345);
+    g.fillStyle = "#6D4AFF"; g.font = `700 32px ${sans}`; g.fillText("SERTIFIKAT PENCAPAIAN", W / 2, 395);
+    g.fillStyle = "#5B5875"; g.font = `italic 30px ${serif}`; g.fillText("diberikan kepada", W / 2, 470);
+    // nama (otomatis mengecil bila panjang)
+    let fs = 92; g.font = `700 ${fs}px ${serif}`;
+    while (g.measureText(state.name).width > W - 360 && fs > 44) { fs -= 4; g.font = `700 ${fs}px ${serif}`; }
+    g.fillStyle = "#1E1B3A"; g.fillText(state.name, W / 2, 575);
+    g.strokeStyle = "#6D4AFF"; g.lineWidth = 3; g.beginPath(); g.moveTo(W / 2 - 420, 605); g.lineTo(W / 2 + 420, 605); g.stroke();
+    g.fillStyle = "#372580"; g.font = `700 32px ${sans}`; g.fillText("Kelas " + state.kelas + " · " + DATA.sekolah, W / 2, 655);
+    g.fillStyle = "#1E1B3A"; g.font = `30px ${sans}`;
+    g.fillText(kalimat, W / 2, 725);
+    g.fillText("Bahasa Inggris – Discussion Text: Adjectives", W / 2, 768);
+    // nilai
+    g.font = `800 34px ${sans}`; const tw = g.measureText(nilai).width + 70;
+    g.fillStyle = "#EDE9FF"; this.round(g, W / 2 - tw / 2, 800, tw, 64, 32); g.fill();
+    g.fillStyle = "#372580"; g.fillText(nilai, W / 2, 844);
+    // tanggal & tanda tangan
+    const tgl = new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+    g.textAlign = "left"; g.fillStyle = "#5B5875"; g.font = `26px ${sans}`;
+    g.fillText("Jenis: " + jenis, 170, 960); g.fillText("Tanggal: " + tgl, 170, 1000);
+    g.textAlign = "center"; const sx = W - 400;
+    g.fillStyle = "#5B5875"; g.font = `26px ${sans}`; g.fillText("Pandeglang, " + tgl, sx, 900);
+    g.fillText(DATA.jabatanGuru + ",", sx, 935);
+    g.strokeStyle = "#1E1B3A"; g.lineWidth = 2; g.beginPath(); g.moveTo(sx - 190, 1005); g.lineTo(sx + 190, 1005); g.stroke();
+    g.fillStyle = "#1E1B3A"; g.font = `700 30px ${sans}`; g.fillText(DATA.guru, sx, 1040);
+    g.textAlign = "left"; g.fillStyle = "#8E89A8"; g.font = `20px ${sans}`; g.fillText("© 2026 Ade Juanda, M.Pd. – MPI Discussion Text", 170, 1040);
+    this.dataUrl = c.toDataURL("image/png");
+    $("#certImg").src = this.dataUrl; $("#printImg").src = this.dataUrl;
+    show("sertifikat");
+  },
+  round(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+};
+$("#btnCertDl").addEventListener("click", () => {
+  if (!Cert.dataUrl) return;
+  const a = document.createElement("a"); a.href = Cert.dataUrl;
+  a.download = "Sertifikat_" + state.name.replace(/[^\w]+/g, "_") + ".png";
+  document.body.appendChild(a); a.click(); a.remove();
+  toast("Sertifikat diunduh. Di iPad/iPhone: tekan lama gambar lalu pilih 'Simpan ke Foto'.", 4000);
+});
+$("#btnCertPrint").addEventListener("click", () => window.print());
+
+/* Kirim antrean nilai tertunda saat aplikasi dibuka */
+Sheet.flush();
+</script>
+</body>
+</html>

@@ -519,7 +519,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:32px}
    Jika dibiarkan, nilai tetap tersimpan di perangkat dan akan terkirim
    setelah URL diisi dan aplikasi dibuka kembali saat online.
    ========================================================================= */
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbzFkN-PgF-SdqqlRPOpYJfk_wX8DR4fcEfAUeECmJ-d-UiF_L-97C3P4Ppl8UmNyOJ7LQ/exec";
+const SHEET_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnSlrAaNV8kWa5qDnihmdjEri2cZ7EU3QjT19j6pHwY5AKuMuzV1Pi5qv3heSF3EBt1UHDgvI1t9nlAUgq-l0bpAsukQcDrkNARt-Q4xjytliOpZ9ZHGhbYE6_Uv1GRdM7IIxQ0sYPpYTKjuewr16eP54UojOWbxkWAYvqXciGOFOF3BqE486-8JPWlqRC6pS6eEPCVJqLT0-GWBECq5rXczaCpcg1k3JCBVPQT0bKbaPJa710ecSCqoarltgoE6EaDdG1Y3AAQK-woPfuzk2IzKsi3vAQ&lib=MifaK_PNxsdJ1MYWmyeCOG_qH4oxkodeg";
 
 /* =========================================================================
    IKON SVG (garis, 24×24) – menggantikan emoji agar tampil sama di semua perangkat
@@ -827,7 +827,7 @@ const Sound = (() => {
 const Sheet = {
   KEY: "mpi_queue", busy: false,
   hasUrl() { return /^https:\/\//.test(SHEET_URL); },
-  enqueue(rec) { const q = store.get(this.KEY, []); q.push(rec); store.set(this.KEY, q); return this.flush(); },
+  enqueue(...recs) { const q = store.get(this.KEY, []); q.push(...recs); store.set(this.KEY, q); return this.flush(); },
   async flush() {
     if (!store.get(this.KEY, []).length) return "empty";
     if (!this.hasUrl()) return "nourl";
@@ -1205,7 +1205,7 @@ const Game = {
       <div class="btn-row"><button class="btn btn-lg" id="gStart">Mulai ${ic("play", "fill")}</button></div>`);
   },
   reset() {
-    this.clearWords(); this.score = 0; this.lives = 3; this.got = 0; this.acc = 0; this.running = false; this.paused = false;
+    this.clearWords(); this.score = 0; this.lives = 3; this.got = 0; this.wrong = 0; this.missed = 0; this.acc = 0; this.running = false; this.paused = false;
     this.hud();
   },
   hud() {
@@ -1219,7 +1219,7 @@ const Game = {
   overlay(html) { $("#overlayCard").innerHTML = html; $("#gameOverlay").classList.remove("hidden"); },
   hideOverlay() { $("#gameOverlay").classList.add("hidden"); },
   begin() {
-    this.hideOverlay(); this.running = true; this.paused = false; state.gameActive = true;
+    this.hideOverlay(); this.running = true; this.paused = false; state.gameActive = true; this.t0 = Date.now();
     this.last = performance.now(); this.acc = this.cfg.spawn - 300;
     this.raf = requestAnimationFrame(t => this.loop(t));
   },
@@ -1237,6 +1237,7 @@ const Game = {
       w.el.style.transform = `translate(${w.x}px,${w.y}px)`;
       if (w.y > H) {
         w.el.remove(); this.words.splice(k, 1);
+        if (w.target) this.missed++;
         if (w.target && this.cfg.miss) { this.loseLife(); if (!this.running) return; }
       }
     }
@@ -1267,7 +1268,7 @@ const Game = {
     if (w.target) {
       this.score += 10; this.got++; Sound.play("pop"); w.el.classList.add("hit");
     } else {
-      Sound.play("wrong"); w.el.classList.add("bad");
+      this.wrong++; Sound.play("wrong"); w.el.classList.add("bad");
       if (navigator.vibrate) try { navigator.vibrate(80); } catch (e) {}
     }
     setTimeout(() => { w.el.remove(); this.words = this.words.filter(x => x !== w); }, 560);
@@ -1279,6 +1280,15 @@ const Game = {
     this.lives--; this.hud();
     const a = $("#gameArea"); a.style.borderColor = "var(--bad)"; setTimeout(() => a.style.borderColor = "", 250);
     if (this.lives <= 0) this.lose();
+  },
+  /* Catatan nilai satu percobaan level untuk Google Sheet */
+  levelRecord(lulus, bintang) {
+    const L = this.cfg;
+    return { id: uid(), waktu: new Date().toLocaleString("id-ID"), nama: state.name, kelas: state.kelas,
+      jenis: "Kuis Level " + (this.lv + 1) + " – " + L.nama, skor: this.score, benar: this.got, total: L.goal,
+      predikat: lulus ? "Lulus " + bintang + "/3 bintang" : "Gagal (nyawa habis)",
+      durasi: Math.round((Date.now() - (this.t0 || Date.now())) / 1000),
+      detail: "Salah ketuk: " + this.wrong + " | Terlewat: " + this.missed + " | Sisa nyawa: " + Math.max(0, this.lives) };
   },
   async win() {
     this.running = false; state.gameActive = false; cancelAnimationFrame(this.raf);
@@ -1295,24 +1305,29 @@ const Game = {
     this.overlay(`<h3 class="page-title" data-hic="1"><span class="title-ic">${ic(last ? "award" : "sparkles")}</span>${last ? "Semua Level Selesai!" : "Level " + (this.lv + 1) + " Selesai!"}</h3>
       <div class="stars-big">${window.stars(stars, "var(--gold)", "#DDD8F2")}</div>
       <p>Skor: <b>${this.score}</b> <span class="small-id" style="display:inline">(bonus nyawa +${bonus})</span></p>
-      ${last ? `<div class="status-msg" id="kuisStatus">${ic("clock")}Menyimpan nilai…</div>` : ""}
+      <div class="status-msg" id="kuisStatus">${ic("clock")}Menyimpan nilai…</div>
       <div class="btn-row">${last ? `<button class="btn btn-gold" id="gCert">${ic("award")} Lihat Sertifikat</button>` : `<button class="btn btn-ok" id="gNext">Level ${this.lv + 2} ${ic("arrowR")}</button>`}
       <button class="btn btn-ghost" id="gLevels">Pilih Level</button></div>`);
+    const recs = [this.levelRecord(true, stars)];
     if (last) {
       const total = p.best.reduce((a, b) => a + b, 0), st = p.stars.reduce((a, b) => a + b, 0);
       this.lastResult = { total, stars: st };
-      const status = await Sheet.enqueue({ id: uid(), waktu: new Date().toLocaleString("id-ID"), nama: state.name, kelas: state.kelas, jenis: "Kuis (Game)",
-        skor: total, benar: 5, total: 5, predikat: st + "/15 bintang", durasi: "", detail: "Bintang per level: " + p.stars.join("-") + " | Skor per level: " + p.best.join("-") });
-      const el = $("#kuisStatus"); if (el) el.innerHTML = Sheet.message(status);
+      recs.push({ id: uid(), waktu: new Date().toLocaleString("id-ID"), nama: state.name, kelas: state.kelas, jenis: "Kuis TOTAL (tamat 5 level)",
+        skor: total, benar: 5, total: 5, predikat: st + "/15 bintang", durasi: "", detail: "Bintang per level: " + p.stars.join("-") + " | Skor terbaik per level: " + p.best.join("-") });
     }
+    const status = await Sheet.enqueue(...recs);
+    const el = $("#kuisStatus"); if (el) el.innerHTML = Sheet.message(status);
   },
-  lose() {
+  async lose() {
     this.running = false; state.gameActive = false; cancelAnimationFrame(this.raf);
     setTimeout(() => this.clearWords(), 400);
     Sound.play("lose");
     this.overlay(`<h3 class="page-title" data-hic="1"><span class="title-ic">${ic("xCircle")}</span>Nyawa Habis</h3><p>Kamu mengumpulkan <b>${this.got}</b> dari ${this.cfg.goal} kata. Ayo coba lagi!</p>
       <p class="small-id">${esc(this.cfg.idn)}</p>
+      <div class="status-msg" id="kuisStatus">${ic("clock")}Menyimpan nilai…</div>
       <div class="btn-row"><button class="btn" id="gRetry">${ic("refresh")} Ulangi Level</button><button class="btn btn-ghost" id="gLevels">Pilih Level</button></div>`);
+    const status = await Sheet.enqueue(this.levelRecord(false, 0));
+    const el = $("#kuisStatus"); if (el) el.innerHTML = Sheet.message(status);
   },
   pause() {
     if (!this.running || this.paused) return;

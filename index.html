@@ -519,7 +519,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:32px}
    Jika dibiarkan, nilai tetap tersimpan di perangkat dan akan terkirim
    setelah URL diisi dan aplikasi dibuka kembali saat online.
    ========================================================================= */
-const SHEET_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnSlrAaNV8kWa5qDnihmdjEri2cZ7EU3QjT19j6pHwY5AKuMuzV1Pi5qv3heSF3EBt1UHDgvI1t9nlAUgq-l0bpAsukQcDrkNARt-Q4xjytliOpZ9ZHGhbYE6_Uv1GRdM7IIxQ0sYPpYTKjuewr16eP54UojOWbxkWAYvqXciGOFOF3BqE486-8JPWlqRC6pS6eEPCVJqLT0-GWBECq5rXczaCpcg1k3JCBVPQT0bKbaPJa710ecSCqoarltgoE6EaDdG1Y3AAQK-woPfuzk2IzKsi3vAQ&lib=MifaK_PNxsdJ1MYWmyeCOG_qH4oxkodeg";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzFkN-PgF-SdqqlRPOpYJfk_wX8DR4fcEfAUeECmJ-d-UiF_L-97C3P4Ppl8UmNyOJ7LQ/exec";
 
 /* =========================================================================
    IKON SVG (garis, 24×24) – menggantikan emoji agar tampil sama di semua perangkat
@@ -827,7 +827,10 @@ const Sound = (() => {
 const Sheet = {
   KEY: "mpi_queue", busy: false,
   hasUrl() { return /^https:\/\//.test(SHEET_URL); },
-  enqueue(...recs) { const q = store.get(this.KEY, []); q.push(...recs); store.set(this.KEY, q); return this.flush(); },
+  /* Bersihkan teks dari karakter khusus (mis. tanda pisah panjang) sebelum dikirim */
+  clean(rec) { const o = {}; Object.keys(rec).forEach(k => { const v = rec[k]; o[k] = typeof v === "string" ? v.replace(/[\u2013\u2014]/g, "-").replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"') : v; }); return o; },
+  enqueue(...recs) { recs = recs.map(r => this.clean(r));
+    const q = store.get(this.KEY, []); q.push(...recs); store.set(this.KEY, q); return this.flush(); },
   async flush() {
     if (!store.get(this.KEY, []).length) return "empty";
     if (!this.hasUrl()) return "nourl";
@@ -1285,7 +1288,7 @@ const Game = {
   levelRecord(lulus, bintang) {
     const L = this.cfg;
     return { id: uid(), waktu: new Date().toLocaleString("id-ID"), nama: state.name, kelas: state.kelas,
-      jenis: "Kuis Level " + (this.lv + 1) + " – " + L.nama, skor: this.score, benar: this.got, total: L.goal,
+      jenis: "Kuis Level " + (this.lv + 1) + " - " + L.nama, skor: this.score, benar: this.got, total: L.goal,
       predikat: lulus ? "Lulus " + bintang + "/3 bintang" : "Gagal (nyawa habis)",
       durasi: Math.round((Date.now() - (this.t0 || Date.now())) / 1000),
       detail: "Salah ketuk: " + this.wrong + " | Terlewat: " + this.missed + " | Sisa nyawa: " + Math.max(0, this.lives) };

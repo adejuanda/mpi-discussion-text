@@ -311,6 +311,94 @@ input[type=range]{width:100%;accent-color:var(--p);height:32px}
 }
 #printArea{display:none}
 
+/* =========================================================
+   15. MODE PRESENTASI (gaya keynote, tema terang)
+   ========================================================= */
+.splash-link{display:inline-flex;align-items:center;gap:.5em;margin-top:1.1em;background:transparent;border:1.5px solid rgba(255,255,255,.55);color:#fff;border-radius:999px;padding:.55em 1.3em;min-height:44px;font-weight:700;font-size:.95rem;animation:fadeUp .7s 1.05s both;transition:background .15s}
+@media (hover:hover){.splash-link:hover{background:rgba(255,255,255,.15)}}
+.tile.wide{grid-column:1/-1;flex-direction:row;min-height:96px;gap:16px;padding:16px 20px}
+.tile.wide .ico{width:60px;height:60px;border-radius:18px}
+.tile.wide .ico .ic{width:32px;height:32px}
+.tile.wide .txt{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+
+#pres{position:fixed;inset:0;z-index:120;background:#fff;color:#1D1D1F;display:none;overflow:hidden;outline:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#pres.show{display:block}
+.p-prog{position:absolute;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,#6D4AFF,#C04CFD,#FF5E8A);transition:width .5s cubic-bezier(.2,.8,.2,1);z-index:3}
+#pStage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:7vh 6vw 14vh;overflow:hidden;touch-action:pan-y}
+.slide{width:100%;max-width:1500px;text-align:center;animation:pIn .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pIn{from{opacity:0;transform:scale(.97);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+.slide .st{opacity:0;transform:translateY(3vmin);filter:blur(8px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1),filter .7s}
+.slide .st.on{opacity:1;transform:none;filter:none}
+.slide > * + *{margin-top:3.2vmin}
+.p-kicker{font-size:clamp(14px,2.4vmin,30px);font-weight:600;color:#6E6E73;letter-spacing:.01em}
+.p-xl{font-size:clamp(44px,13vmin,190px);font-weight:800;letter-spacing:-.045em;line-height:1.02}
+.p-lg{font-size:clamp(32px,8vmin,120px);font-weight:700;letter-spacing:-.035em;line-height:1.06}
+.p-md{font-size:clamp(22px,5vmin,72px);font-weight:600;letter-spacing:-.025em;line-height:1.18}
+.slide .muted{color:#86868B}
+.g{background:linear-gradient(90deg,#6D4AFF 0%,#B44CFD 55%,#FF5E8A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{background:linear-gradient(transparent 62%,#FFE58A 62%);padding:0 .08em}
+.p-pos{color:#1A7F37}.p-neg{color:#D70015}
+.tag{display:inline-block;vertical-align:middle;font-size:.42em;font-weight:700;letter-spacing:0;border-radius:999px;padding:.25em .8em;margin-left:.4em}
+.tag.pos{background:#E3F4E8;color:#1A7F37}.tag.neg{background:#FDE7EA;color:#D70015}
+.tr{display:block;font-size:clamp(14px,2.7vmin,34px);font-weight:500;letter-spacing:0;color:#86868B;margin-top:.7em;line-height:1.35}
+.p-card .tr,.p-step .tr,.p-chip .tr{font-size:clamp(12px,2.1vmin,26px);margin-top:.4em}
+#pres:not(.tr-on) .tr{display:none}
+/* split */
+.p-split{display:grid;grid-template-columns:1fr 1fr;gap:3vmin;max-width:1200px;margin-left:auto;margin-right:auto}
+.p-card{background:#F5F5F7;border-radius:3.2vmin;padding:5vmin 4vmin;text-align:left}
+.p-card h3{font-size:clamp(24px,6vmin,84px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+.p-card p{font-size:clamp(16px,3.2vmin,42px);color:#424245;margin-top:1vmin}
+.p-cic{display:inline-flex;width:9vmin;height:9vmin;min-width:40px;min-height:40px;border-radius:50%;align-items:center;justify-content:center;background:#fff;margin-bottom:2.4vmin;color:#5A37F0}
+.p-cic .ic{width:50%;height:50%}
+.p-card.pos{background:#F0F8F2}.p-card.neg{background:#FDF1F2}
+.p-card.pos h3,.p-card.pos .p-cic{color:#1A7F37}.p-card.neg h3,.p-card.neg .p-cic{color:#D70015}
+/* struktur */
+.p-struct{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4vmin;text-align:left}
+.p-step{border-top:4px solid #1D1D1F;padding-top:2.4vmin}
+.p-step:nth-child(2){border-color:#1A7F37}.p-step:nth-child(3){border-color:#D70015}.p-step:nth-child(4){border-color:#6D4AFF}
+.p-num{font-size:clamp(14px,2.4vmin,30px);font-weight:700;color:#86868B}
+.p-step h3{font-size:clamp(20px,4.4vmin,60px);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-top:1vmin}
+.p-step p{font-size:clamp(14px,2.8vmin,36px);color:#424245;margin-top:.8vmin}
+/* kata */
+.p-words{display:grid;grid-template-columns:1fr 1fr;gap:4vmin;text-align:left;max-width:1300px;margin-left:auto;margin-right:auto}
+.p-words h3{font-size:clamp(20px,4.4vmin,60px);font-weight:700;letter-spacing:-.025em;margin-bottom:2vmin;display:flex;align-items:center;gap:.35em}
+.p-chips{display:flex;flex-wrap:wrap;gap:1.6vmin}
+.p-chip{display:inline-block;border-radius:2vmin;padding:1.4vmin 2.4vmin;font-size:clamp(16px,3.4vmin,46px);font-weight:600;letter-spacing:-.015em}
+.pos .p-chip{background:#F0F8F2;color:#1A7F37}.neg .p-chip{background:#FDF1F2;color:#D70015}
+.p-chip .tr{color:inherit;opacity:.7}
+/* tebak pro/kontra */
+.p-guess-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vmin;max-width:1200px;margin-left:auto;margin-right:auto}
+.p-guess{border:0;background:#F5F5F7;border-radius:3vmin;min-height:20vmin;padding:2vmin;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1vmin;color:#1D1D1F;font-size:clamp(20px,4.6vmin,64px);font-weight:700;letter-spacing:-.025em;transition:background .4s,color .4s,transform .15s}
+.p-guess:active{transform:scale(.97)}
+.p-guess .ans{display:none;font-size:.45em;font-weight:700;letter-spacing:.04em;align-items:center;gap:.4em}
+.p-guess.open .ans{display:inline-flex;animation:fadeUp .4s both}
+.p-guess.open.pos{background:#E3F4E8;color:#1A7F37}.p-guess.open.neg{background:#FDE7EA;color:#D70015}
+@media (hover:hover){.p-guess:not(.open):hover{background:#EDEDF0}}
+/* contoh teks */
+.p-lab{display:inline-block;font-size:clamp(14px,2.4vmin,30px);font-weight:700;border-radius:999px;padding:.35em 1em;background:#EDE9FF;color:#5A37F0}
+.p-lab.pos{background:#E3F4E8;color:#1A7F37}.p-lab.neg{background:#FDE7EA;color:#D70015}
+.p-text{font-size:clamp(20px,4.4vmin,62px);font-weight:500;letter-spacing:-.02em;line-height:1.5;text-align:left;max-width:1250px;margin-left:auto;margin-right:auto}
+.p-adj{background-image:linear-gradient(#FFE58A,#FFE58A);background-repeat:no-repeat;background-position:0 88%;background-size:0% 40%;transition:background-size .6s cubic-bezier(.2,.8,.2,1);border-radius:2px}
+.p-adj.on{background-size:100% 40%}
+/* ketuk adjective */
+.p-sentence{font-size:clamp(24px,6vmin,86px);font-weight:600;letter-spacing:-.025em;line-height:1.6}
+.p-tok{border:0;background:transparent;font:inherit;letter-spacing:inherit;color:inherit;padding:0 .12em;border-radius:.2em;transition:background .25s,color .25s}
+.p-tok.hit,.p-tok.adj.on{background:#E3F4E8;color:#1A7F37}
+.p-tok.no{background:#FDE7EA;color:#D70015;animation:shake .35s}
+@media (hover:hover){.p-tok:not(.hit):not(.on):hover{background:#F5F5F7}}
+.p-hint{font-size:clamp(12px,2.1vmin,24px);color:#A1A1A6}
+/* bilah kontrol */
+.p-bar{position:absolute;left:50%;bottom:max(2.4vh,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;border-radius:999px;background:rgba(255,255,255,.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 0 0 1px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.08);z-index:4;transition:opacity .5s}
+#pres.idle .p-bar{opacity:.15}
+.p-btn{border:0;background:transparent;color:#1D1D1F;width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;transition:background .15s,color .15s}
+.p-btn .ic{width:22px;height:22px}
+.p-btn:disabled{opacity:.3;cursor:default}
+.p-btn.on{background:#1D1D1F;color:#fff}
+@media (hover:hover){.p-btn:not(:disabled):not(.on):hover{background:rgba(0,0,0,.06)}}
+.p-count{min-width:64px;text-align:center;font-size:14px;font-weight:600;color:#6E6E73;font-variant-numeric:tabular-nums}
+.p-sep{width:1px;height:22px;background:rgba(0,0,0,.1);margin:0 4px}
+@media (max-aspect-ratio:1/1){.p-split,.p-words{grid-template-columns:1fr}.p-struct,.p-guess-grid{grid-template-columns:1fr 1fr}}
+
 @media (max-width:560px){
   .card{padding:18px}
   .bins{grid-template-columns:1fr}
@@ -337,7 +425,8 @@ input[type=range]{width:100%;accent-color:var(--p);height:32px}
     <h1 class="splash-title">DISCUSSION<br>TEXT</h1>
     <p class="splash-sub">Adjectives in Discussion Text</p>
     <p class="splash-desc">Media Pembelajaran Interaktif · Writing</p>
-    <button class="btn btn-lg" id="btnStart"><span data-ic="play" data-icc="fill"></span> MULAI</button>
+    <button class="btn btn-lg" id="btnStart"><span data-ic="play" data-icc="fill"></span> MULAI</button><br>
+    <button class="splash-link" id="btnPresSplash"><span data-ic="present"></span> Mode Presentasi (Guru)</button>
   </div>
   <div class="splash-foot">© 2026 Ade Juanda, M.Pd. – SMAN 10 Pandeglang</div>
 </section>
@@ -377,6 +466,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:32px}
       <button class="tile" data-go="materi"><span class="ico"><span data-ic="book"></span></span><span class="lbl">MATERI</span><span class="hint">Pelajari konsep</span></button>
       <button class="tile" data-go="simulasi"><span class="ico"><span data-ic="clip"></span></span><span class="lbl">SIMULASI</span><span class="hint">10 soal latihan</span></button>
       <button class="tile" data-go="kuis"><span class="ico"><span data-ic="game"></span></span><span class="lbl">KUIS</span><span class="hint">Game 5 level</span></button>
+      <button class="tile wide" id="btnPresMenu"><span class="ico"><span data-ic="present"></span></span><span class="txt"><span class="lbl">PRESENTASI</span><span class="hint">Mode slide untuk guru di PID</span></span></button>
     </div>
     <div class="menu-tools">
       <button class="btn btn-ghost" id="btnSettings"><span data-ic="sliders"></span> Pengaturan</button>
@@ -506,6 +596,21 @@ input[type=range]{width:100%;accent-color:var(--p);height:32px}
   </div>
 </div>
 
+<!-- ================= MODE PRESENTASI (guru) ================= -->
+<div id="pres" role="dialog" aria-modal="true" aria-label="Mode Presentasi" tabindex="-1">
+  <div class="p-prog" id="pProg"></div>
+  <div id="pStage"></div>
+  <div class="p-bar">
+    <button class="p-btn" id="pPrev" aria-label="Sebelumnya" data-nosfx><span data-ic="chevL"></span></button>
+    <span class="p-count" id="pCount">1 / 1</span>
+    <button class="p-btn" id="pNext" aria-label="Berikutnya" data-nosfx><span data-ic="chevR"></span></button>
+    <span class="p-sep"></span>
+    <button class="p-btn" id="pTr" aria-label="Terjemahan on/off" title="Terjemahan Indonesia (T)" data-nosfx>ID</button>
+    <button class="p-btn" id="pFs" aria-label="Layar penuh" title="Layar penuh (F)" data-nosfx><span data-ic="expand"></span></button>
+    <button class="p-btn" id="pClose" aria-label="Tutup presentasi" title="Keluar (Esc)" data-nosfx><span data-ic="x"></span></button>
+  </div>
+</div>
+
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="printArea"><img id="printImg" alt=""></div>
 
@@ -567,7 +672,9 @@ const ICONS = {
   sparkles:'<path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9z"/>',
   music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
   bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
-  volume:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19.5 6a8 8 0 0 1 0 12"/>'
+  volume:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19.5 6a8 8 0 0 1 0 12"/>',
+  present:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/>',
+  expand:'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'
 };
 /* ic("nama", "kelas-tambahan") -> string <svg> */
 function ic(n, cls) { return '<svg class="ic ' + (cls || "") + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (ICONS[n] || "") + '</svg>'; }
@@ -704,6 +811,55 @@ const DATA = {
       en:"Tap only POSITIVE adjectives (for PRO arguments).", idn:"Ketuk hanya adjective POSITIF yang cocok untuk argumen PRO." },
     { nama:"Tim Kontra", target:"neg", label:"ADJ. NEGATIF (KONTRA)", distract:["pos","adv","noun"], speed:115, spawn:1000, goal:14, ratio:.45, miss:true,
       en:"Tap only NEGATIVE adjectives (for AGAINST arguments).", idn:"Ketuk hanya adjective NEGATIF yang cocok untuk argumen KONTRA." }
+  ],
+
+  /* ---------- PRESENTASI (mode slide guru di PID) ----------
+     type : hero | statement | split | struct | words | guess | text | tap
+     step : urutan munculnya elemen saat diklik (tanpa step = langsung tampil)
+     tr   : terjemahan Indonesia (tampil bila tombol "ID" aktif)
+     Boleh memakai HTML: <span class='g'>teks gradasi</span>, <b class='hl'>stabilo</b>.
+     Slide "text" mengambil paragraf dari contoh teks di MATERI tab 5 (from: 0-3). */
+  slides: [
+    { type:"hero", kicker:"Bahasa Inggris · Kelas XII", title:"Discussion<br>Text.", sub:"Adjectives that <span class='g'>take a side.</span>", tr:"Kata sifat yang memihak." },
+    { type:"statement", lines:[
+      { t:"Should students bring<br>smartphones to school?", size:"lg", tr:"Bolehkah siswa membawa HP ke sekolah?" },
+      { t:"What do <span class='g'>you</span> think?", size:"md", step:1, tr:"Bagaimana pendapatmu?" } ] },
+    { type:"split", title:"One issue. <span class='g'>Two sides.</span>", tr:"Satu isu, dua sisi.",
+      left:{ ic:"thumbUp", tone:"pos", h:"For", p:"Arguments that support.", tr:"Argumen yang mendukung (pro)." },
+      right:{ ic:"thumbDown", tone:"neg", h:"Against", p:"Arguments that oppose.", tr:"Argumen yang menentang (kontra)." } },
+    { type:"split", title:"Discussion <span class='muted'>vs</span> Exposition", tr:"Teks diskusi berbeda dengan teks eksposisi.",
+      left:{ ic:"layers", h:"Discussion", p:"Two sides. Balanced.", tr:"Dua sisi, seimbang." },
+      right:{ ic:"flag", h:"Exposition", p:"One side. Persuasive.", tr:"Satu sisi, membujuk pembaca." } },
+    { type:"struct", title:"The structure.", tr:"Struktur teks diskusi.", items:[
+      ["Issue", "The topic.", "Isu yang dibahas."],
+      ["Arguments For", "The pro side.", "Argumen pendukung."],
+      ["Arguments Against", "The kontra side.", "Argumen penentang."],
+      ["Conclusion", "Opinion or advice.", "Kesimpulan atau saran."] ] },
+    { type:"statement", lines:[
+      { t:"What makes an argument<br>sound good or bad?", size:"md", tr:"Apa yang membuat argumen terdengar positif atau negatif?" },
+      { t:"<span class='g'>Adjectives.</span>", size:"xl", step:1, tr:"Kata sifat." } ] },
+    { type:"statement", lines:[
+      { t:"An adjective describes a noun.", size:"md", tr:"Adjective menerangkan kata benda." },
+      { t:"a <b class='hl'>useful</b> app", size:"lg", step:1, tr:"di depan kata benda" },
+      { t:"The app is <b class='hl'>useful</b>.", size:"lg", step:2, tr:"setelah is / am / are" } ] },
+    { type:"statement", lines:[
+      { t:"Ask one question.", size:"md", cls:"muted", tr:"Ajukan satu pertanyaan." },
+      { t:"<span class='g'>“What is it like?”</span>", size:"xl", step:1, tr:"Seperti apa sifatnya?" },
+      { t:"useful · harmful · expensive", size:"md", step:2, tr:"Jawabannya biasanya adjective." } ] },
+    { type:"statement", lines:[
+      { t:"Careful with <span class='g'>-ly</span>.", size:"lg", tr:"Hati-hati dengan akhiran -ly." },
+      { t:"a <b>quick</b> answer <span class='tag pos'>adjective</span>", size:"md", step:1 },
+      { t:"answer <b>quickly</b> <span class='tag neg'>adverb</span>", size:"md", step:2, tr:"Kata berakhiran -ly biasanya adverb, bukan adjective." } ] },
+    { type:"words", title:"Choose your side.", tr:"Adjective positif untuk pro, negatif untuk kontra.", n:6 },
+    { type:"guess", title:"Pro or Kontra?", tr:"Ketuk kartu untuk membuka jawaban.",
+      words:[["healthy",0],["noisy",1],["creative",0],["risky",1],["efficient",0],["unsafe",1]] },
+    { type:"text", from:0 },
+    { type:"text", from:1 },
+    { type:"text", from:2 },
+    { type:"text", from:3 },
+    { type:"tap", title:"Tap the adjectives.", tr:"Ketuk semua adjective.", text:"Online classes are *flexible*, but they can feel *lonely*." },
+    { type:"tap", title:"Tap the adjectives.", tr:"Ketuk semua adjective.", text:"*Big* classes can be *noisy* and *crowded*." },
+    { type:"hero", kicker:"That's it.", title:"Now,<br><span class='g'>your turn.</span>", sub:"Open <b>SIMULASI</b> on your phone.", tr:"Buka menu SIMULASI di HP-mu." }
   ]
 };
 
@@ -816,6 +972,7 @@ const Sound = (() => {
     setMusic(on) { settings.music = on; save(); on ? (init(), startMusic()) : stopMusic(); },
     setSfx(on) { settings.sfx = on; save(); },
     setVol(v) { settings.vol = v; save(); if (ctx) master.gain.setTargetAtTime(v / 100, ctx.currentTime, 0.05); },
+    hold(on) { if (on) stopMusic(); else if (settings.music && ctx) startMusic(); }, /* jeda musik sementara (mode presentasi) */
     suspend() { if (ctx && ctx.state === "running") ctx.suspend(); },
     resume() { if (ctx && ctx.state === "suspended") ctx.resume(); }
   };
@@ -1431,6 +1588,156 @@ $("#btnCertDl").addEventListener("click", () => {
   toast("Sertifikat diunduh. Di iPad/iPhone: tekan lama gambar lalu pilih 'Simpan ke Foto'.", 4000);
 });
 $("#btnCertPrint").addEventListener("click", () => window.print());
+
+/* =========================================================================
+   MODE PRESENTASI (gaya keynote, tema terang) – untuk guru di PID
+   Navigasi: ketuk kanan/kiri, geser, tombol panah, spasi, clicker.
+   Pintasan: T = terjemahan, F = layar penuh, Esc = keluar.
+   ========================================================================= */
+const PR = {
+  tr(t) { return t ? `<span class="tr">${t}</span>` : ""; },
+  at(n) { return n ? ` data-s="${n}"` : ""; },
+  hero(s) {
+    return `${s.kicker ? `<p class="p-kicker">${s.kicker}</p>` : ""}<h1 class="p-xl">${s.title}</h1>` +
+      (s.sub ? `<p class="p-md st"${this.at(1)}>${s.sub}${this.tr(s.tr)}</p>` : "");
+  },
+  statement(s) {
+    return s.lines.map(l => `<p class="p-${l.size || "md"} ${l.cls || ""}${l.step ? " st" : ""}"${this.at(l.step)}>${l.t}${this.tr(l.tr)}</p>`).join("");
+  },
+  split(s) {
+    return `<h2 class="p-lg">${s.title}${this.tr(s.tr)}</h2><div class="p-split">` +
+      [s.left, s.right].map((c, k) => `<div class="p-card ${c.tone || ""} st"${this.at(k + 1)}>${c.ic ? `<span class="p-cic">${ic(c.ic)}</span>` : ""}<h3>${c.h}</h3><p>${c.p}</p>${this.tr(c.tr)}</div>`).join("") + `</div>`;
+  },
+  struct(s) {
+    return `<h2 class="p-lg">${s.title}${this.tr(s.tr)}</h2><div class="p-struct">` +
+      s.items.map(([h, p, t], k) => `<div class="p-step st"${this.at(k + 1)}><span class="p-num">0${k + 1}</span><h3>${h}</h3><p>${p}</p>${this.tr(t)}</div>`).join("") + `</div>`;
+  },
+  words(s) {
+    const n = s.n || 6;
+    const grp = (arr, cls, h, icn, k) => `<div class="${cls} st"${this.at(k)}><h3 class="p-${cls}">${ic(icn)}${h}</h3><div class="p-chips">` +
+      arr.slice(0, n).map(([w, a]) => `<span class="p-chip">${esc(w)}${this.tr(esc(a))}</span>`).join("") + `</div></div>`;
+    return `<h2 class="p-lg">${s.title}${this.tr(s.tr)}</h2><div class="p-words">` +
+      grp(DATA.kataPro, "pos", "Positive → Pro", "thumbUp", 1) + grp(DATA.kataKontra, "neg", "Negative → Kontra", "thumbDown", 2) + `</div>`;
+  },
+  guess(s) {
+    return `<h2 class="p-lg">${s.title}${this.tr(s.tr)}</h2><div class="p-guess-grid">` +
+      s.words.map(([w, b]) => `<button class="p-guess ${b ? "neg" : "pos"}" data-nosfx>${esc(w)}<span class="ans">${ic(b ? "thumbDown" : "thumbUp")}${b ? "KONTRA" : "PRO"}</span></button>`).join("") + `</div>`;
+  },
+  text(s) {
+    const src = DATA.materi.find(m => m.teks), p = src.teks[s.from];
+    const tone = /Against/i.test(p.lab) ? "neg" : /For/i.test(p.lab) ? "pos" : "";
+    let k = 0;
+    const body = tokenize(p.p).map(t => t.adj
+      ? `<span class="p-adj"${this.at(1)} style="transition-delay:${(k++ * 0.2).toFixed(1)}s">${esc(t.w)}</span>${esc(t.punct)}`
+      : esc(t.w + t.punct)).join(" ");
+    return `<p class="p-kicker">${esc(src.judul.replace(/^Example:\s*/, ""))}</p><div><span class="p-lab ${tone}">${esc(p.lab)}</span></div>` +
+      `<p class="p-text">${body}</p>` + (s.from === 0 ? `<p class="p-hint">Tekan → untuk menyorot adjective</p>` : "");
+  },
+  tap(s) {
+    return `<p class="p-kicker">${s.kicker || "Your turn"}</p><h2 class="p-md">${s.title}${this.tr(s.tr)}</h2>` +
+      `<p class="p-sentence">${tokenize(s.text).map(t => `<button class="p-tok${t.adj ? " adj" : ""}" data-nosfx${t.adj ? this.at(1) : ""}>${esc(t.w)}</button>${esc(t.punct)}`).join(" ")}</p>` +
+      `<p class="p-hint">Siswa maju dan mengetuk kata di papan · tekan → untuk melihat jawaban</p>`;
+  }
+};
+
+const Pres = {
+  i: 0, step: 0, max: 0, idleT: 0,
+  get n() { return DATA.slides.length; },
+  isOpen() { return $("#pres").classList.contains("show"); },
+  open() {
+    Sound.init(); Sound.hold(true);
+    const p = $("#pres");
+    p.classList.add("show");
+    p.classList.toggle("tr-on", store.get("mpi_pres_tr", true));
+    document.body.style.overflow = "hidden";
+    $("#pFs").classList.toggle("hidden", !(p.requestFullscreen || p.webkitRequestFullscreen));
+    this.syncTr(); this.go(0, false); this.wake();
+    try { p.focus({ preventScroll: true }); } catch (e) {}
+  },
+  close() {
+    if (this.isFs()) this.toggleFs();
+    $("#pres").classList.remove("show");
+    document.body.style.overflow = "";
+    clearTimeout(this.idleT);
+    Sound.hold(false);
+  },
+  go(i, atEnd) {
+    this.i = Math.max(0, Math.min(this.n - 1, i));
+    const s = DATA.slides[this.i];
+    $("#pStage").innerHTML = `<div class="slide">${PR[s.type](s)}</div>`;
+    this.max = Math.max(0, ...$$("[data-s]", $("#pStage")).map(e => +e.dataset.s));
+    this.set(atEnd ? this.max : 0);
+  },
+  set(k) {
+    this.step = k;
+    $$("[data-s]", $("#pStage")).forEach(e => e.classList.toggle("on", +e.dataset.s <= k));
+    $("#pCount").textContent = (this.i + 1) + " / " + this.n;
+    $("#pPrev").disabled = this.i === 0 && k === 0;
+    $("#pNext").disabled = this.i === this.n - 1 && k === this.max;
+    $("#pProg").style.width = ((this.i + (this.max ? k / this.max : 1)) / this.n * 100) + "%";
+  },
+  next() { if (this.step < this.max) this.set(this.step + 1); else if (this.i < this.n - 1) this.go(this.i + 1, false); },
+  prev() { if (this.step > 0) this.set(this.step - 1); else if (this.i > 0) this.go(this.i - 1, true); },
+  syncTr() { const on = $("#pres").classList.contains("tr-on"); $("#pTr").classList.toggle("on", on); $("#pTr").setAttribute("aria-pressed", on); },
+  toggleTr() { const on = $("#pres").classList.toggle("tr-on"); store.set("mpi_pres_tr", on); this.syncTr(); },
+  isFs() { return !!(document.fullscreenElement || document.webkitFullscreenElement); },
+  toggleFs() {
+    const d = document, el = $("#pres");
+    try {
+      const r = this.isFs() ? (d.exitFullscreen || d.webkitExitFullscreen).call(d) : (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+      if (r && r.catch) r.catch(() => {});
+    } catch (e) {}
+  },
+  wake() {
+    const p = $("#pres"); p.classList.remove("idle");
+    clearTimeout(this.idleT); this.idleT = setTimeout(() => p.classList.add("idle"), 2800);
+  }
+};
+$("#btnPresSplash").addEventListener("click", () => Pres.open());
+$("#btnPresMenu").addEventListener("click", () => Pres.open());
+$("#pPrev").addEventListener("click", () => Pres.prev());
+$("#pNext").addEventListener("click", () => Pres.next());
+$("#pTr").addEventListener("click", () => Pres.toggleTr());
+$("#pFs").addEventListener("click", () => Pres.toggleFs());
+$("#pClose").addEventListener("click", () => Pres.close());
+$("#pres").addEventListener("pointermove", () => Pres.wake());
+
+/* Ketuk (kiri 30% = mundur, sisanya = maju) & geser di area slide */
+let pDown = null;
+$("#pStage").addEventListener("pointerdown", e => { pDown = { x: e.clientX, y: e.clientY, onBtn: !!e.target.closest("button") }; Pres.wake(); });
+$("#pStage").addEventListener("pointerup", e => {
+  if (!pDown) return;
+  const d = pDown, dx = e.clientX - d.x, dy = e.clientY - d.y; pDown = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? Pres.next() : Pres.prev(); return; }
+  if (d.onBtn || Math.hypot(dx, dy) > 10) return;
+  e.clientX < window.innerWidth * 0.3 ? Pres.prev() : Pres.next();
+});
+$("#pStage").addEventListener("pointercancel", () => { pDown = null; });
+
+/* Slide interaktif: kartu Pro/Kontra & ketuk adjective */
+$("#pStage").addEventListener("click", e => {
+  const g = e.target.closest(".p-guess");
+  if (g) { const open = g.classList.toggle("open"); if (open) Sound.play("pop"); return; }
+  const t = e.target.closest(".p-tok");
+  if (t && !t.classList.contains("hit") && !t.classList.contains("on")) {
+    if (t.classList.contains("adj")) { t.classList.add("hit"); Sound.play("correct"); }
+    else { t.classList.remove("no"); void t.offsetWidth; t.classList.add("no"); Sound.play("wrong"); setTimeout(() => t.classList.remove("no"), 700); }
+  }
+});
+
+/* Keyboard & clicker presentasi */
+document.addEventListener("keydown", e => {
+  if (!Pres.isOpen()) return;
+  const k = e.key;
+  if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) { e.preventDefault(); Pres.next(); }
+  else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(k)) { e.preventDefault(); Pres.prev(); }
+  else if (k === "Home") Pres.go(0, false);
+  else if (k === "End") Pres.go(Pres.n - 1, true);
+  else if (k === "t" || k === "T") Pres.toggleTr();
+  else if (k === "f" || k === "F") Pres.toggleFs();
+  else if (k === "Escape" && !Pres.isFs()) Pres.close();
+  Pres.wake();
+});
 
 /* Kirim antrean nilai tertunda saat aplikasi dibuka */
 Sheet.flush();
